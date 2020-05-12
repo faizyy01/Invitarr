@@ -7,8 +7,18 @@ from plexapi.myplex import MyPlexAccount
 from discord import Webhook, AsyncWebhookAdapter
 import aiohttp
 
-account = MyPlexAccount('user', 'pass')
-plex = account.resource('plex server name here').connect()  # returns a PlexServer instance
+# settings
+PLEXUSER = ''
+PLEXPASS = ''
+PLEX_SERVER_NAME = ''
+roleid = ''
+Plex_LIBS = ["Movies","TV Shows"] #name of the libraries you want the user to have access to.
+Webhookurl = '' # For logging the user repiles, create a webhook to the discord channel you want to log this in.
+
+
+
+account = MyPlexAccount(PLEXUSER, PLEXPASS)
+plex = account.resource(PLEX_SERVER_NAME).connect()  # returns a PlexServer instance
 
 class MyClient(discord.Client):
     async def on_ready(self):
@@ -18,24 +28,23 @@ class MyClient(discord.Client):
         print('------')
 
     async def on_member_update(self, before, after):
-        role1 = after.guild.get_role(roleid) #I had two roles... you are welcome to use just one or many...
-        role2 = after.guild.get_role(roleid)
-        if (role1 in after.roles and role1 not in before.roles) or (role2 in after.roles and role2 not in before.roles):
-            await after.send('Welcome To Sleepingpirates Plex Server. Just reply with your email so we can add you to Plex!')
+        role = after.guild.get_role(roleid) 
+        if (role in after.roles and role not in before.roles):
+            await after.send('Welcome To The Plex. Just reply with your email so we can add you to Plex!')
             await after.send('I will wait 10 minutes for your message, if you do not send it by then I will cancel the command.')
             def check(m):
                 return m.author == after and not m.guild
             try:
                 email = await client.wait_for('message', timeout=600, check=check)
             except asyncio.TimeoutError:
-                await after.send('error... message pirate... so he can add you manually.')
+                await after.send('You fucked up... message ... so he can add you manually.')
             else:
                 await asyncio.sleep(5)
                 await after.send('Got it we will be processing your email shortly')
-            print(email.content) #for logging... 
+            print(email.content) #make it go to a log channel
             plexname = str(email.content)
             try:
-                plex.myPlexAccount().inviteFriend(user=plexname, server=plex, sections=["Movies","TV Shows","Movies - Trending","Anime"], allowSync=False, #your libs here
+                plex.myPlexAccount().inviteFriend(user=plexname, server=plex, sections=Plex_LIBS, allowSync=False, #your libs here
                                                       allowCameraUpload=False, allowChannels=False, filterMovies=None,
                                                       filterTelevision=None, filterMusic=None)
                 await asyncio.sleep(20)
@@ -45,7 +54,7 @@ class MyClient(discord.Client):
             else:
                 await after.send('You have Been Added To Plex!')
             async with aiohttp.ClientSession() as session:
-                webhook = Webhook.from_url('webhook url here', adapter=AsyncWebhookAdapter(session)) #webhook to a discord channel to log emails
+                webhook = Webhook.from_url('Webhookurl', adapter=AsyncWebhookAdapter(session)) #webhook to a discord channel to log emails
                 await webhook.send(plexname + ' was added to plex', username='Logger')
 
 client = MyClient()
