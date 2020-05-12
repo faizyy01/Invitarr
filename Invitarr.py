@@ -8,11 +8,11 @@ from discord import Webhook, AsyncWebhookAdapter
 import aiohttp
 
 # settings
-Discord_bot_token = ''
-roleid = ''
-PLEXUSER = ''
-PLEXPASS = ''
-PLEX_SERVER_NAME = ''
+Discord_bot_token = '' 
+roleid = '' # Role Id, right click the role and copy id.  
+PLEXUSER = '' # Plex Username
+PLEXPASS = '' # plex password
+PLEX_SERVER_NAME = '' # Name of plex server 
 Plex_LIBS = ["Movies","TV Shows"] #name of the libraries you want the user to have access to.
 Webhookurl = '' # For logging the user repiles, create a webhook to the discord channel you want to log this in.
 
@@ -45,7 +45,7 @@ class MyClient(discord.Client):
             print(email.content) #make it go to a log channel
             plexname = str(email.content)
             try:
-                plex.myPlexAccount().inviteFriend(user=plexname, server=plex, sections=Plex_LIBS, allowSync=False, #your libs here
+                plex.myPlexAccount().inviteFriend(user=plexname, server=plex, sections=Plex_LIBS, allowSync=False, 
                                                       allowCameraUpload=False, allowChannels=False, filterMovies=None,
                                                       filterTelevision=None, filterMusic=None)
                 await asyncio.sleep(20)
@@ -55,7 +55,7 @@ class MyClient(discord.Client):
             else:
                 await after.send('You have Been Added To Plex!')
             async with aiohttp.ClientSession() as session:
-                webhook = Webhook.from_url('Webhookurl', adapter=AsyncWebhookAdapter(session)) #webhook to a discord channel to log emails
+                webhook = Webhook.from_url('Webhookurl', adapter=AsyncWebhookAdapter(session)) 
                 await webhook.send(plexname + ' was added to plex', username='Logger')
 
 client = MyClient()
