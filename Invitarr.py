@@ -38,7 +38,7 @@ class MyClient(discord.Client):
             try:
                 email = await client.wait_for('message', timeout=600, check=check)
             except asyncio.TimeoutError:
-                await after.send('You fucked up... message ... so he can add you manually.')
+                await after.send('Timed Out. Message Server Admin So They Can Add You Manually.')
             else:
                 await asyncio.sleep(5)
                 await after.send('Got it we will be processing your email shortly')
