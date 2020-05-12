@@ -9,10 +9,10 @@ import aiohttp
 
 # settings
 Discord_bot_token = '' 
-roleid = '' # Role Id, right click the role and copy id.  
-PLEXUSER = '' # Plex Username
-PLEXPASS = '' # plex password
-PLEX_SERVER_NAME = '' # Name of plex server 
+roleid =                # Role Id, right click the role and copy id.  
+PLEXUSER = ''           # Plex Username
+PLEXPASS = ''           # plex password
+PLEX_SERVER_NAME = ''   # Name of plex server 
 Plex_LIBS = ["Movies","TV Shows"] #name of the libraries you want the user to have access to.
 Webhookurl = '' # For logging the user repiles, create a webhook to the discord channel you want to log this in.
 
