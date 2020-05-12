@@ -8,10 +8,11 @@ from discord import Webhook, AsyncWebhookAdapter
 import aiohttp
 
 # settings
+Discord_bot_token = ''
+roleid = ''
 PLEXUSER = ''
 PLEXPASS = ''
 PLEX_SERVER_NAME = ''
-roleid = ''
 Plex_LIBS = ["Movies","TV Shows"] #name of the libraries you want the user to have access to.
 Webhookurl = '' # For logging the user repiles, create a webhook to the discord channel you want to log this in.
 
@@ -58,4 +59,4 @@ class MyClient(discord.Client):
                 await webhook.send(plexname + ' was added to plex', username='Logger')
 
 client = MyClient()
-client.run('token-here')
+client.run(Discord_bot_token)
