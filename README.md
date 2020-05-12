@@ -9,4 +9,4 @@ Once a role is given to the discord user, they get a direct message asking for t
 3. Enjoy! 
 
 # Screenshots
-![bot](https://github.com/Sleepingpirates/Invitarr/blob/master/Screenshots/ss.jpg)
+![bot](https://github.com/Sleepingpirates/Invitarr/blob/master/Screenshots/ss2.jpg)
