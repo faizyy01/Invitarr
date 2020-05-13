@@ -1,3 +1,5 @@
+[![Discord](https://img.shields.io/discord/674782527139086350?color=7289DA&label=Discord&style=for-the-badge&logo=discord)](https://discord.gg/vcxCytN)
+
 # Invitarr
 Discord Bot to invite a user to a plex server once a user gets a certain role in discord. 
 
