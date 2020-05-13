@@ -1,4 +1,4 @@
-#Copyright © 2020 Sleepingpirate. 
+#Copyright 2020 Sleepingpirate. 
 
 import discord
 from discord.ext import commands
