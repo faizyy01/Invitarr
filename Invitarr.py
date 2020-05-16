@@ -56,7 +56,7 @@ class MyClient(discord.Client):
                 await after.send('You have Been Added To Plex!')
             async with aiohttp.ClientSession() as session:
                 webhook = Webhook.from_url(Webhookurl, adapter=AsyncWebhookAdapter(session)) 
-                await webhook.send(plexname + ' was added to plex', username='Logger')
+                await webhook.send(plexname + ' ' + after.mention + ' was added to plex', username='Logger')
 
 client = MyClient()
 client.run(Discord_bot_token)
