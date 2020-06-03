@@ -9,6 +9,7 @@ Once a role is given to the discord user, they get a direct message asking for t
 
 # Installation & Configuration
 Refer to the [Wiki](https://github.com/Sleepingpirates/Invitarr/wiki) for detailed steps.
+
 Quick Link to docker -> https://hub.docker.com/repository/docker/piratify/invitarr
 
 # Screenshots
