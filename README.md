@@ -5,6 +5,8 @@ Discord Bot to invite a user to a plex server once a user gets a certain role in
 
 Once a role is given to the discord user, they get a direct message asking for their email and their email gets added to plex. 
 
+Also can do `-plexadd "email"`
+
 # Installation & Configuration
 Refer to the [Wiki](https://github.com/Sleepingpirates/Invitarr/wiki) for detailed steps.
 
