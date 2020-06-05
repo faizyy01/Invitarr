@@ -14,7 +14,7 @@ PLEXUSER = ''           # Plex Username
 PLEXPASS = ''           # plex password
 PLEX_SERVER_NAME = ''   # Name of plex server 
 Plex_LIBS = ["Movies","TV Shows"] #name of the libraries you want the user to have access to.
-chan = 
+chan =  #Channel id of the channel you want to log emails and use -plexadd in. 
 
 account = MyPlexAccount(PLEXUSER, PLEXPASS)
 plex = account.resource(PLEX_SERVER_NAME).connect()  # returns a PlexServer instance
