@@ -1,1 +1,1 @@
-worker: python Invitarr.py
+worker: python Invitarr-docker.py
