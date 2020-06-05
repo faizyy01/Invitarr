@@ -1,7 +1,7 @@
 Join our server for a bot demo!
 
 [![Discord](https://img.shields.io/discord/708829995744755822?color=7289DA&label=Discord&style=for-the-badge&logo=discord)](https://discord.gg/vcxCytN) 
-
+[![DockerHub](https://img.shields.io/badge/Docker-Hub-%23099cec?style=for-the-badge&logo=docker)](https://hub.docker.com/r/piratify/invitarr)
 # Invitarr
 Discord Bot to invite a user to a plex server once a user gets a certain role in discord. 
 
