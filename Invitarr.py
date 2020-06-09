@@ -10,13 +10,13 @@ import db as db
 
 
 # settings
-Discord_bot_token = 'NzE5OTIyMjE0NzQ4Njg0NDQ4.Xt-eCA.3AfI93j0it3dHKI5BaMb8o0tzAk' 
-roleid = 719937272480530432             # Role Id, right click the role and copy id.  
-PLEXUSER = 'sahil.sharma071997@gmail.com'           # Plex Username
-PLEXPASS = 'DUbBaNenQ!8SdQG'           # plex password
+Discord_bot_token = '' 
+roleid =              # Role Id, right click the role and copy id.  
+PLEXUSER = ''           # Plex Username
+PLEXPASS = ''           # plex password
 PLEX_SERVER_NAME = 'Sahil-Y50'   # Name of plex server 
 Plex_LIBS = ["Films"] #name of the libraries you want the user to have access to.
-chan = 719924353789329420 #Channel id of the channel you want to log emails and use -plexadd in. 
+chan =  #Channel id of the channel you want to log emails and use -plexadd in. 
 
 account = MyPlexAccount(PLEXUSER, PLEXPASS)
 plex = account.resource(PLEX_SERVER_NAME).connect()  # returns a PlexServer instance
