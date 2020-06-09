@@ -6,15 +6,17 @@ import asyncio
 from plexapi.myplex import MyPlexAccount
 from discord import Webhook, AsyncWebhookAdapter
 import aiohttp
+import db as db
+
 
 # settings
-Discord_bot_token = '' 
-roleid =                # Role Id, right click the role and copy id.  
-PLEXUSER = ''           # Plex Username
-PLEXPASS = ''           # plex password
-PLEX_SERVER_NAME = ''   # Name of plex server 
-Plex_LIBS = ["Movies","TV Shows"] #name of the libraries you want the user to have access to.
-chan =  #Channel id of the channel you want to log emails and use -plexadd in. 
+Discord_bot_token = 'NzE5OTIyMjE0NzQ4Njg0NDQ4.Xt-eCA.3AfI93j0it3dHKI5BaMb8o0tzAk' 
+roleid = 719937272480530432             # Role Id, right click the role and copy id.  
+PLEXUSER = 'sahil.sharma071997@gmail.com'           # Plex Username
+PLEXPASS = 'DUbBaNenQ!8SdQG'           # plex password
+PLEX_SERVER_NAME = 'Sahil-Y50'   # Name of plex server 
+Plex_LIBS = ["Films"] #name of the libraries you want the user to have access to.
+chan = 719924353789329420 #Channel id of the channel you want to log emails and use -plexadd in. 
 
 account = MyPlexAccount(PLEXUSER, PLEXPASS)
 plex = account.resource(PLEX_SERVER_NAME).connect()  # returns a PlexServer instance
@@ -32,6 +34,17 @@ def plexadd(plexname):
         print(plexname +' has been added to plex (☞ຈل͜ຈ)☞')
         return True
 
+
+def plexremove(plexname):
+    try:
+        plex.myPlexAccount().removeFriend(user=plexname, server=plex)
+
+    except Exception as e:
+        print(e)
+        return False
+    else:
+        print(plexname +' has been added to plex (☞ຈل͜ຈ)☞')
+        return True
 
 class MyClient(discord.Client):
     async def on_ready(self):
@@ -58,12 +71,21 @@ class MyClient(discord.Client):
             print(email.content) #make it go to a log channel
             plexname = str(email.content)
             if plexadd(plexname):
+                db.save_user(after.display_name, email.content)
                 await asyncio.sleep(20)
                 await after.send('You have Been Added To Plex!')
                 secure = client.get_channel(chan)
                 await secure.send(plexname + ' ' + after.mention + ' was added to plex')
             else:
                 await after.send('There was an error adding this email address. Message Server Admin.')
+        if(role not in after.roles and role in before.roles):
+            print('condt2')
+            # plexremove(after.)
+            
+            
+
+
+
 
     async def on_message(self, message):
         secure = client.get_channel(chan)
@@ -75,6 +97,12 @@ class MyClient(discord.Client):
                 mgs = message.content.replace('-plexadd ','')
                 if plexadd(mgs):
                     await message.channel.send('The email has been added! {0.author.mention}'.format(message))
+                else:
+                    message.channel.send('Error Check Logs! {0.author.mention}'.format(message))
+            if message.content.startswith('-plexrm'):
+                mgs = message.content.replace('-plexrm ','')
+                if plexremove(mgs):
+                    await message.channel.send('The email has been removed! {0.author.mention}'.format(message))
                 else:
                     message.channel.send('Error Check Logs! {0.author.mention}'.format(message))
 
