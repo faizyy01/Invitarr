@@ -1,0 +1,4 @@
+discord.py
+plex.py
+PlexAPI
+python-dotenv
