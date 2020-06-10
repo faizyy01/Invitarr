@@ -1,0 +1,11 @@
+{
+  "name": "Invitarr",
+  "description": "This app does one little thing, and does it well.",
+  "repository": "https://github.com/Sleepingpirates/Invitarr",
+  "image": "Sleepingpirates/Invitarr/tree/master/Docker",
+  "buildpacks": [
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-python"
+    }
+  ],
+}
