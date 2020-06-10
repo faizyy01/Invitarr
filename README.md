@@ -35,4 +35,4 @@ Refer to the [Wiki](https://github.com/Sleepingpirates/Invitarr/wiki) for detail
 Quick Link to docker -> https://hub.docker.com/r/piratify/invitarr
 
 # Screenshots
-![bot](https://github.com/Sleepingpirates/Invitarr/blob/master/Screenshots/ss2.png)
+![bot](https://github.com/Sleepingpirates/Invitarr/blob/master/Screenshots/ss5.png)
