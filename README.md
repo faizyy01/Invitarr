@@ -5,7 +5,7 @@ Plex Discord Bot to invite a user to a plex server once a user gets a certain ro
 
 Once a role is given to the discord user, they get a direct message asking for their email and their email gets added to plex. 
 
-If the discord user loses their role their email is also removed from plex. 
+If the discord user loses their role their email is also removed from plex. (You can disable this and the database if you want.)
 
 Commands that can be used in a specified discord channel.: 
 ```
