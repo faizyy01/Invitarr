@@ -27,7 +27,7 @@ roleid=
 PLEX_SERVER_NAME=
 Plex_LIBS=
 channelid=
-autoremoveuser=True
+autoremoveuser=True #Default is set to False. This enables database and auto-remove. 
 ```
 
 Refer to the [Wiki](https://github.com/Sleepingpirates/Invitarr/wiki) for detailed steps.
