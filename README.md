@@ -24,8 +24,8 @@ PLEXUSER=
 PLEXPASS=
 PLEX_SERVER_NAME=
 Plex_LIBS=
-roleid=
 discord_bot_token=
+roleid=
 channelid=
 autoremoveuser=True #Default is set to False. This enables database and auto-remove. 
 ```
