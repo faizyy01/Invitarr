@@ -16,6 +16,20 @@ Commands that can be used in a specified discord channel.:
 ```
 
 # Installation & Configuration
+
+Envs:
+
+```
+discord_bot_token=
+PLEXUSER=
+PLEXPASS=
+roleid=
+PLEX_SERVER_NAME=
+Plex_LIBS=
+channelid=
+autoremoveuser=True
+```
+
 Refer to the [Wiki](https://github.com/Sleepingpirates/Invitarr/wiki) for detailed steps.
 
 Quick Link to docker -> https://hub.docker.com/r/piratify/invitarr
