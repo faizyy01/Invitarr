@@ -117,16 +117,6 @@ class MyClient(discord.Client):
                     await message.channel.send('The email has been removed! {0.author.mention}'.format(message))
                 else:
                     message.channel.send('Error Check Logs! {0.author.mention}'.format(message))
-            if message.content.startswith('-dbadd'):
-                mgs = message.content.replace('-dbadd ','')
-                try:
-                    mgs = mgs.split(' ')
-                    email = mgs[0]
-                    username = mgs[1].replace('@', '').split('#')[0]
-                    db.save_user(username, email)
-                    await message.channel.send('The user {} has been added to db!'.format(mgs[1]))
-                except:
-                    print("Cannot add this user to db.")
 
 client = MyClient()
 client.run(Discord_bot_token)
