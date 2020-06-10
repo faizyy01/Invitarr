@@ -14,8 +14,8 @@ Discord_bot_token = ''
 roleid =              # Role Id, right click the role and copy id.  
 PLEXUSER = ''           # Plex Username
 PLEXPASS = ''           # plex password
-PLEX_SERVER_NAME = 'Sahil-Y50'   # Name of plex server 
-Plex_LIBS = ["Films"] #name of the libraries you want the user to have access to.
+PLEX_SERVER_NAME = ''   # Name of plex server 
+Plex_LIBS = [] #name of the libraries you want the user to have access to.
 chan =  #Channel id of the channel you want to log emails and use -plexadd in. 
 
 account = MyPlexAccount(PLEXUSER, PLEXPASS)
@@ -37,13 +37,12 @@ def plexadd(plexname):
 
 def plexremove(plexname):
     try:
-        plex.myPlexAccount().removeFriend(user=plexname, server=plex)
-
+        plex.myPlexAccount().removeFriend(user=plexname)
     except Exception as e:
         print(e)
         return False
     else:
-        print(plexname +' has been added to plex (☞ຈل͜ຈ)☞')
+        print(plexname +' has been removed from plex (☞ຈل͜ຈ)☞')
         return True
 
 class MyClient(discord.Client):
@@ -78,14 +77,18 @@ class MyClient(discord.Client):
                 await secure.send(plexname + ' ' + after.mention + ' was added to plex')
             else:
                 await after.send('There was an error adding this email address. Message Server Admin.')
-        if(role not in after.roles and role in before.roles):
-            print('condt2')
-            # plexremove(after.)
-            
-            
-
-
-
+        elif(role not in after.roles and role in before.roles):
+            try:
+                username = after.display_name
+                email = db.get_useremail(username)
+                plexremove(email)
+                deleted = db.delete_user(username)
+                if deleted:
+                    print("Removed {} from db".format(email))
+                else:
+                    print("Cannot remove this user from db.")
+            except:
+                print("Cannot remove this user from plex.")
 
     async def on_message(self, message):
         secure = client.get_channel(chan)
