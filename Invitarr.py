@@ -1,20 +1,31 @@
-#Copyright 2020 Sleepingpirate. 
+#Copyright 2020 Sleepingpirate.
 
+from os import environ
 import discord
 from discord.ext import commands
 import asyncio
 from plexapi.myplex import MyPlexAccount
 from discord import Webhook, AsyncWebhookAdapter
 import aiohttp
+from dotenv import load_dotenv
+load_dotenv(dotenv_path='bot.env')
 
 # settings
-Discord_bot_token = '' 
-roleid =                # Role Id, right click the role and copy id.  
-PLEXUSER = ''           # Plex Username
-PLEXPASS = ''           # plex password
-PLEX_SERVER_NAME = ''   # Name of plex server 
-Plex_LIBS = ["Movies","TV Shows"] #name of the libraries you want the user to have access to.
-chan =  #Channel id of the channel you want to log emails and use -plexadd in. 
+Discord_bot_token = environ.get('discord_bot_token')
+roleid =  int(environ.get('roleid'))             # Role Id, right click the role and copy id.
+PLEXUSER = environ.get('PLEXUSER')          # Plex Username
+PLEXPASS = environ.get('PLEXPASS')          # plex password
+PLEX_SERVER_NAME = environ.get('PLEX_SERVER_NAME')    # Name of plex server
+Plex_LIBS = environ.get('Plex_LIBS')  #name of the libraries you want the user to have access to.
+chan = int(environ.get('channelid'))
+auto_remove_user = environ.get('autoremoveuser') if environ.get('autoremoveuser') else False # auto remove user from plex and db if removed from the role
+
+li = list(Plex_LIBS.split(','))
+Plex_LIBS = li
+
+if auto_remove_user:
+    print("auto remove user = True")
+    import db as db
 
 account = MyPlexAccount(PLEXUSER, PLEXPASS)
 plex = account.resource(PLEX_SERVER_NAME).connect()  # returns a PlexServer instance
@@ -32,6 +43,16 @@ def plexadd(plexname):
         print(plexname +' has been added to plex (☞ຈل͜ຈ)☞')
         return True
 
+
+def plexremove(plexname):
+    try:
+        plex.myPlexAccount().removeFriend(user=plexname)
+    except Exception as e:
+        print(e)
+        return False
+    else:
+        print(plexname +' has been removed from plex (☞ຈل͜ຈ)☞')
+        return True
 
 class MyClient(discord.Client):
     async def on_ready(self):
@@ -58,12 +79,27 @@ class MyClient(discord.Client):
             print(email.content) #make it go to a log channel
             plexname = str(email.content)
             if plexadd(plexname):
+                if auto_remove_user:
+                    db.save_user(after.display_name, email.content)
                 await asyncio.sleep(20)
                 await after.send('You have Been Added To Plex!')
                 secure = client.get_channel(chan)
                 await secure.send(plexname + ' ' + after.mention + ' was added to plex')
             else:
                 await after.send('There was an error adding this email address. Message Server Admin.')
+        elif(role not in after.roles and role in before.roles):
+            if auto_remove_user:
+                try:
+                    username = after.display_name
+                    email = db.get_useremail(username)
+                    plexremove(email)
+                    deleted = db.delete_user(username)
+                    if deleted:
+                        print("Removed {} from db".format(email))
+                    else:
+                        print("Cannot remove this user from db.")
+                except:
+                    print("Cannot remove this user from plex.")
 
     async def on_message(self, message):
         secure = client.get_channel(chan)
@@ -77,6 +113,22 @@ class MyClient(discord.Client):
                     await message.channel.send('The email has been added! {0.author.mention}'.format(message))
                 else:
                     message.channel.send('Error Check Logs! {0.author.mention}'.format(message))
+            if message.content.startswith('-plexrm'):
+                mgs = message.content.replace('-plexrm ','')
+                if plexremove(mgs):
+                    await message.channel.send('The email has been removed! {0.author.mention}'.format(message))
+                else:
+                    message.channel.send('Error Check Logs! {0.author.mention}'.format(message))
+            if message.content.startswith('-dbadd'):
+                mgs = message.content.replace('-dbadd ','')
+                try:
+                    mgs = mgs.split(' ')
+                    email = mgs[0]
+                    username = mgs[1].replace('@', '').split('#')[0]
+                    db.save_user(username, email)
+                    await message.channel.send('The user {} has been added to db!'.format(mgs[1]))
+                except:
+                    print("Cannot add this user to db.")
 
 client = MyClient()
 client.run(Discord_bot_token)
