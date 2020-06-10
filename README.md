@@ -20,12 +20,12 @@ Commands that can be used in a specified discord channel.:
 Envs:
 
 ```
-discord_bot_token=
 PLEXUSER=
 PLEXPASS=
-roleid=
 PLEX_SERVER_NAME=
 Plex_LIBS=
+roleid=
+discord_bot_token=
 channelid=
 autoremoveuser=True #Default is set to False. This enables database and auto-remove. 
 ```
