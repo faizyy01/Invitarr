@@ -1,7 +1,7 @@
 {
   "name": "Invitarr",
   "description": "This app does one little thing, and does it well.",
-  "image": "piratify/invitarr:latest",
+  "image": "piratify/invitarr",
   "buildpacks": [
     {
       "url": "heroku/python"
