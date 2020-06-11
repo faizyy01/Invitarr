@@ -80,7 +80,7 @@ class MyClient(discord.Client):
             plexname = str(email.content)
             if plexadd(plexname):
                 if auto_remove_user:
-                    db.save_user(after.display_name, email.content)
+                    db.save_user(after.id, email.content)
                 await asyncio.sleep(20)
                 await after.send('You have Been Added To Plex!')
                 secure = client.get_channel(chan)
@@ -90,10 +90,10 @@ class MyClient(discord.Client):
         elif(role not in after.roles and role in before.roles):
             if auto_remove_user:
                 try:
-                    username = after.display_name
-                    email = db.get_useremail(username)
+                    user_id = after.id
+                    email = db.get_useremail(user_id)
                     plexremove(email)
-                    deleted = db.delete_user(username)
+                    deleted = db.delete_user(user_id)
                     if deleted:
                         print("Removed {} from db".format(email))
                     else:
@@ -119,6 +119,31 @@ class MyClient(discord.Client):
                     await message.channel.send('The email has been removed! {0.author.mention}'.format(message))
                 else:
                     message.channel.send('Error Check Logs! {0.author.mention}'.format(message))
+
+            if message.content.startswith('-dbadd'):
+                mgs = message.content.replace('-dbadd ','')
+                try:
+                    mgs = mgs.split(' ')
+                    email = mgs[0]
+                    user_id = mgs[1]
+                    db.save_user(user_id, email)
+                    await message.channel.send('The user {} has been added to db!'.format(mgs[0]))
+                except:
+                    print("Cannot add this user to db.")
+    
+    async def on_member_remove(self, member):            
+        if auto_remove_user:
+            try:
+                user_id = member.id ## not there 
+                email = db.get_useremail(user_id)
+                plexremove(email)
+                deleted = db.delete_user(user_id)
+                if deleted:
+                    print("Removed {} from db".format(email))
+                else:
+                    print("Cannot remove this user from db.")
+            except:
+                print("Cannot remove this user from plex.")
                     
 client = MyClient()
 client.run(Discord_bot_token)
