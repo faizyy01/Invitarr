@@ -3,7 +3,7 @@
   "description": "This app does one little thing, and does it well.",
   "repository": "https://github.com/Sleepingpirates/Invitarr",
    "scripts": {
-    "postdeploy": "git subtree push --prefix Docker Invitarr master"
+    "predeploy": "git subtree push --prefix Docker Invitarr master"
   },
   "buildpacks": [
     {
