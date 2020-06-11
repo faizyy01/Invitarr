@@ -125,7 +125,10 @@ class MyClient(discord.Client):
                 try:
                     mgs = mgs.split(' ')
                     email = mgs[0]
+                    bad_chars = ['<','>','@','!']
                     user_id = mgs[1]
+                    for i in bad_chars:
+                        user_id = user_id.replace(i, '')
                     db.save_user(user_id, email)
                     await message.channel.send('The user {} has been added to db!'.format(mgs[0]))
                 except:
