@@ -74,7 +74,7 @@ class MyClient(discord.Client):
             plexname = str(email.content)
             if plexadd(plexname):
                 if auto_remove_user:
-                    db.save_user(after.display_name, email.content)
+                    db.save_user(after.id, email.content)
                 await asyncio.sleep(20)
                 await after.send('You have Been Added To Plex!')
                 secure = client.get_channel(chan)
@@ -84,10 +84,10 @@ class MyClient(discord.Client):
         elif(role not in after.roles and role in before.roles):
             if auto_remove_user:
                 try:
-                    username = after.display_name
-                    email = db.get_useremail(username)
+                    user_id = after.id
+                    email = db.get_useremail(user_id)
                     plexremove(email)
-                    deleted = db.delete_user(username)
+                    deleted = db.delete_user(user_id)
                     if deleted:
                         print("Removed {} from db".format(email))
                     else:
@@ -118,9 +118,9 @@ class MyClient(discord.Client):
                 try:
                     mgs = mgs.split(' ')
                     email = mgs[0]
-                    username = mgs[1].replace('@', '').split('#')[0]
-                    db.save_user(username, email)
-                    await message.channel.send('The user {} has been added to db!'.format(mgs[1]))
+                    user_id = mgs[1]
+                    db.save_user(user_id, email)
+                    await message.channel.send('The user {} has been added to db!'.format(mgs[0]))
                 except:
                     print("Cannot add this user to db.")
 
