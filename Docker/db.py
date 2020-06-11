@@ -1,6 +1,6 @@
 import sqlite3
 
-DB_URL = 'plex.db'
+DB_URL = '/root/config/plex.db'
 
 def create_connection(db_file):
     """ create a database connection to a SQLite database """
