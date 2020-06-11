@@ -124,5 +124,19 @@ class MyClient(discord.Client):
                 except:
                     print("Cannot add this user to db.")
 
+    async def on_member_remove(self, member):            
+        if auto_remove_user:
+            try:
+                user_id = member.id ## not there 
+                email = db.get_useremail(user_id)
+                plexremove(email)
+                deleted = db.delete_user(user_id)
+                if deleted:
+                    print("Removed {} from db".format(email))
+                else:
+                    print("Cannot remove this user from db.")
+            except:
+                print("Cannot remove this user from plex.")
+
 client = MyClient()
 client.run(Discord_bot_token)
