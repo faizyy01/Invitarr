@@ -80,7 +80,7 @@ class MyClient(discord.Client):
             plexname = str(email.content)
             if plexadd(plexname):
                 if auto_remove_user:
-                    db.save_user(after.id, email.content)
+                    db.save_user(str(after.id), email.content)
                 await asyncio.sleep(20)
                 await after.send('You have Been Added To Plex!')
                 secure = client.get_channel(chan)
