@@ -18,6 +18,7 @@ PLEXPASS = environ.get('PLEXPASS')          # plex password
 PLEX_SERVER_NAME = environ.get('PLEX_SERVER_NAME')    # Name of plex server
 Plex_LIBS = environ.get('Plex_LIBS')  #name of the libraries you want the user to have access to.
 chan = int(environ.get('channelid'))
+ownerid = int(environ.get('ownerid'))
 auto_remove_user = environ.get('autoremoveuser') if environ.get('autoremoveuser') else False # auto remove user from plex and db if removed from the role
 
 li = list(Plex_LIBS.split(','))
@@ -106,6 +107,25 @@ class MyClient(discord.Client):
         if message.author.id == self.user.id:
             return
 
+        if message.author.id == ownerid:
+
+           if message.content.startswith('-dbadd'):
+                mgs = message.content.replace('-dbadd ','')
+                try:
+                    mgs = mgs.split(' ')
+                    email = mgs[0]
+                    bad_chars = ['<','>','@','!']
+                    user_id = mgs[1]
+                    for i in bad_chars:
+                        user_id = user_id.replace(i, '')
+                    db.save_user(user_id, email)
+                    await message.channel.send('The user has been added to db!')
+                except:
+                    await message.channel.send('Cannot add this user to db.')
+                    print("Cannot add this user to db.")
+                await message.delete()
+                           
+
         if str(message.channel) == str(secure):
             if message.content.startswith('-plexadd'):
                 mgs = message.content.replace('-plexadd ','')
@@ -120,19 +140,6 @@ class MyClient(discord.Client):
                 else:
                     message.channel.send('Error Check Logs! {0.author.mention}'.format(message))
 
-            if message.content.startswith('-dbadd'):
-                mgs = message.content.replace('-dbadd ','')
-                try:
-                    mgs = mgs.split(' ')
-                    email = mgs[0]
-                    bad_chars = ['<','>','@','!']
-                    user_id = mgs[1]
-                    for i in bad_chars:
-                        user_id = user_id.replace(i, '')
-                    db.save_user(user_id, email)
-                    await message.channel.send('The user {} has been added to db!'.format(mgs[0]))
-                except:
-                    print("Cannot add this user to db.")
     
     async def on_member_remove(self, member):            
         if auto_remove_user:
