@@ -63,6 +63,7 @@ class MyClient(discord.Client):
 
     async def on_member_update(self, before, after):
         role = after.guild.get_role(roleid)
+        secure = client.get_channel(chan)
         if (role in after.roles and role not in before.roles):
             await after.send('Welcome To '+ PLEX_SERVER_NAME +'. Just reply with your email so we can add you to Plex!')
             await after.send('I will wait 10 minutes for your message, if you do not send it by then I will cancel the command.')
@@ -82,7 +83,6 @@ class MyClient(discord.Client):
                     db.save_user(str(after.id), email.content)
                 await asyncio.sleep(20)
                 await after.send('You have Been Added To Plex!')
-                secure = client.get_channel(chan)
                 await secure.send(plexname + ' ' + after.mention + ' was added to plex')
             else:
                 await after.send('There was an error adding this email address. Message Server Admin.')
@@ -95,7 +95,6 @@ class MyClient(discord.Client):
                     deleted = db.delete_user(user_id)
                     if deleted:
                         print("Removed {} from db".format(email))
-                        secure = client.get_channel(chan)
                         await secure.send(plexname + ' ' + after.mention + ' was removed from plex')
                     else:
                         print("Cannot remove this user from db.")
@@ -120,7 +119,6 @@ class MyClient(discord.Client):
                         user_id = user_id.replace(i, '')
                     db.save_user(user_id, email)
                     await message.channel.send('The user has been added to db!')
-                    secure = client.get_channel(chan)
                     await secure.send(email + ' ' + msg[1] + ' was added to plex')
                 except:
                     await message.channel.send('Cannot add this user to db.')
