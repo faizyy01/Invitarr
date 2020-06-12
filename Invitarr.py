@@ -97,6 +97,8 @@ class MyClient(discord.Client):
                     deleted = db.delete_user(user_id)
                     if deleted:
                         print("Removed {} from db".format(email))
+                        secure = client.get_channel(chan)
+                        await secure.send(plexname + ' ' + after.mention + ' was removed from plex')
                     else:
                         print("Cannot remove this user from db.")
                 except:
@@ -120,6 +122,8 @@ class MyClient(discord.Client):
                         user_id = user_id.replace(i, '')
                     db.save_user(user_id, email)
                     await message.channel.send('The user has been added to db!')
+                    secure = client.get_channel(chan)
+                    await secure.send(email + ' ' + msg[1] + ' was added to plex')
                 except:
                     await message.channel.send('Cannot add this user to db.')
                     print("Cannot add this user to db.")
@@ -150,6 +154,8 @@ class MyClient(discord.Client):
                 deleted = db.delete_user(user_id)
                 if deleted:
                     print("Removed {} from db".format(email))
+                    secure = client.get_channel(chan)
+                    await secure.send(email + ' ' + member.mention + 'was removed from plex because they left the server')
                 else:
                     print("Cannot remove this user from db.")
             except:
