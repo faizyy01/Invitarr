@@ -25,6 +25,7 @@ PLEXUSER=
 PLEXPASS=
 PLEX_SERVER_NAME=
 Plex_LIBS=
+ownerid=
 discord_bot_token=
 roleid=
 channelid=
