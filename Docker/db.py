@@ -1,6 +1,6 @@
 import sqlite3
 
-DB_URL = 'plex.db'
+DB_URL = '/root/config/plex.db'
 
 def create_connection(db_file):
     """ create a database connection to a SQLite database """
@@ -71,9 +71,3 @@ def delete_user(username):
             return False
     else:
         return "username cannot be empty"
-
-def read_useremail():
-  data = cursor.fetchall()
-  for row in data :
-    print row[1]
-  

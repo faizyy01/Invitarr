@@ -7,8 +7,6 @@ import asyncio
 from plexapi.myplex import MyPlexAccount
 from discord import Webhook, AsyncWebhookAdapter
 import aiohttp
-from dotenv import load_dotenv
-load_dotenv(dotenv_path='bot.env')
 
 # settings
 Discord_bot_token = environ.get('discord_bot_token')
