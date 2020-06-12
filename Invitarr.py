@@ -122,7 +122,6 @@ class MyClient(discord.Client):
                         user_id = user_id.replace(i, '')
                     db.save_user(user_id, email)
                     await message.channel.send('The user has been added to db!')
-                    secure = client.get_channel(chan)
                     await secure.send(email + ' ' + msg[1] + ' was added to plex')
                 except:
                     await message.channel.send('Cannot add this user to db.')
@@ -144,6 +143,8 @@ class MyClient(discord.Client):
                 else:
                     message.channel.send('Error Check Logs! {0.author.mention}'.format(message))
 
+            
+
     
     async def on_member_remove(self, member):            
         if auto_remove_user:
@@ -160,6 +161,11 @@ class MyClient(discord.Client):
                     print("Cannot remove this user from db.")
             except:
                 print("Cannot remove this user from plex.")
+
+    def printdb():
+
+
+    
                     
 client = MyClient()
 client.run(Discord_bot_token)

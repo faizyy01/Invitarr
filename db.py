@@ -71,3 +71,9 @@ def delete_user(username):
             return False
     else:
         return "username cannot be empty"
+
+def read_useremail():
+  data = cursor.fetchall()
+  for row in data :
+    print row[1]
+  
