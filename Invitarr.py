@@ -121,7 +121,7 @@ class MyClient(discord.Client):
                         user_id = user_id.replace(i, '')
                     db.save_user(user_id, email)
                     await message.channel.send('The user has been added to db!')
-                    await secure.send(email + ' ' + msg[1] + ' was added to plex')
+                    await secure.send(email + ' ' + mgs[1] + ' was added to plex')
                 except:
                     await message.channel.send('Cannot add this user to db.')
                     print("Cannot add this user to db.")
