@@ -9,11 +9,11 @@ Once a role is given to the discord user, they get a direct message asking for t
 
 If the discord user loses their role their email is also removed from plex. (You can disable this and the database if you want.)
 
-Commands that can be used in a specified discord channel.: 
+Commands: 
 ```
 -plexadd "email" #To add an email to plex. 
 -plexrm "email" #To remove an email that is in plex. 
--dbadd "email" #To link an exsisting user's plex email and discord account.
+-dbadd "email" @user #To link an exsisting user's plex email and discord account.
 ```
 
 # Installation & Configuration
