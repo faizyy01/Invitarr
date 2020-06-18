@@ -19,11 +19,6 @@ def manage_bot(option):
         if proc:
             proc.terminate()
 
-try:
-    manage_bot('start')
-except:
-    print("Some error in starting bot. Please check the config vars")
-
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
