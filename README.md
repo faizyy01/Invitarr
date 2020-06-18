@@ -1,12 +1,19 @@
 [![Discord](https://img.shields.io/discord/708829995744755822?color=7289DA&label=Discord&style=for-the-badge&logo=discord)](https://discord.gg/vcxCytN) 
 [![DockerHub](https://img.shields.io/badge/Docker-Hub-%23099cec?style=for-the-badge&logo=docker)](https://hub.docker.com/r/piratify/invitarr)
 ![Docker Pulls](https://img.shields.io/docker/pulls/piratify/invitarr?color=099cec&style=for-the-badge)
-# Invitarr
-Plex Discord Bot to invite a user to a plex server once a user gets a certain role in discord. 
 
-Once a role is given to the discord user, they get a direct message asking for their email and their email gets added to plex. 
+Invitarr 
+=================
 
-If the discord user loses their role their email is also removed from plex. (You can disable this and the database if you want.)
+Invitarr is a chatbot that invites discord users to plex. You can also automate this bot to invite discord users to plex once a certain role is given to a user or the user can also be added manually.  
+
+### Features
+
+- Ability to invite users to plex from discord 
+- Fully automatic invites using roles 
+- Ability to kick users from plex if they leave the discord server or if their role is taken away.
+- Ability to view the database in discord and to edit it.
+- Fully configurable via a web portal
 
 Commands: 
 ```
