@@ -31,8 +31,12 @@ This command is used to remove a record from the Db. Use -db ls to determine rec
 
 # Docker Setup & Start
 
+1. First pull the image 
 ```
 docker pull piratify/invitarr:latest
+```
+2. Make the container 
+```
 docker run -d --restart unless-stopped --name invitarr -v /path to config:/app/app/config -p 5001:5001 piratify/invitarr:latest
 ```
 
