@@ -17,23 +17,16 @@ Commands:
 
 # Installation & Configuration
 
-Envs:
+Quick Link to docker image -> https://hub.docker.com/r/piratify/invitarr
 
 ```
-PLEXUSER=
-PLEXPASS=
-PLEX_SERVER_NAME=
-Plex_LIBS=
-ownerid=
-discord_bot_token=
-roleid=
-channelid=
-autoremoveuser=True #Default is set to False. This enables database and auto-remove. 
+docker pull piratify/invitarr:latest
+docker run -d --restart unless-stopped --name invitarr -v /path to config:/app/app/config -p 5001:5001 piratify/invitarr:latest
 ```
+
+
 
 Refer to the [Wiki](https://github.com/Sleepingpirates/Invitarr/wiki) for detailed steps.
-
-Quick Link to docker -> https://hub.docker.com/r/piratify/invitarr
 
 # Screenshots
 ![bot](https://github.com/Sleepingpirates/Invitarr/blob/master/Screenshots/June_06.10.2020_07.08.21_PM.png)
