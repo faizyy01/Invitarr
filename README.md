@@ -10,9 +10,16 @@ If the discord user loses their role their email is also removed from plex. (You
 
 Commands: 
 ```
--plexadd "email" #To add an email to plex. 
--plexrm "email" #To remove an email that is in plex. 
--dbadd "email" @user #To link an exsisting user's plex email and discord account.
+-plexadd <email>
+This command is used to add an email to plex
+-plexrm <email>
+This command is used to remove an email from plex
+-db ls
+This command is used list Invitarrs database
+-db add <email> <@user>
+This command is used add exsisting users email and discord id to the DB.
+-db rm <position>
+This command is used remove a record from the Db. Use -db ls to determine record position. ex: -db rm 1
 ```
 
 # Installation & Configuration
