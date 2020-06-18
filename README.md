@@ -22,7 +22,7 @@ This command is used to add exsisting users email and discord id to the DB.
 This command is used to remove a record from the Db. Use -db ls to determine record position. ex: -db rm 1
 ```
 
-# Installation & Configuration
+# Docker Setup & Start
 
 ```
 docker pull piratify/invitarr:latest
