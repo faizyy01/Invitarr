@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 SECRET_KEY = os.urandom(32)
 app.config['SECRET_KEY'] = SECRET_KEY
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///bot/app.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///config/app.db'
 
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
