@@ -1,0 +1,86 @@
+/* Universal */
+:root {
+    --main-bg-color: #000000;
+    --content-background: #17151C;
+    --secondary-content-background: #2A2731;
+    --primary-text-color: #FFFFFF;
+}
+
+body{
+    background-color: var(--main-bg-color);
+    color: var(--primary-text-color);
+}
+
+/* Header */
+h3{
+    font-weight: bold;
+    display: inline-block;
+    margin: 0.5em 0 1.5em 0.25em;
+    padding-top: 0.5em;
+}
+
+.header img{
+    vertical-align: middle;
+}
+
+a.nav-link{
+    color: var(--primary-text-color);
+}
+
+.header button{
+    max-height: 50px;
+    /* margin: 1em 0.5em; */
+}
+
+/* Form */
+.form-container{
+    padding: 1.5em;
+    padding-top: 2em;
+    border-radius: 0 0 10px 10px;
+    background-color: var(--content-background);
+}
+
+.form-stringfield{
+    background-color: var(--secondary-content-background);
+    color: var(--primary-text-color);
+}
+
+.form-stringfield:focus{
+    background-color: var(--secondary-content-background);
+    color: var(--primary-text-color);
+}
+
+.custom-checkbox{
+    padding-left: 3em;
+}
+
+/* Modal */
+.modal-content{
+    background-color: var(--secondary-content-background);
+    padding: 1em !important;
+}
+
+.modal-body{
+    text-align: center;
+}
+
+.modal-header{
+    padding: 1em;
+    border-bottom: none;
+}
+
+.modal-header h4{
+    color: var(--primary-text-color)
+}
+
+/* Login Page */
+.login{
+    margin: auto;
+    margin-top: 5em;
+    text-align: center;
+}
+
+.login h2{
+    margin-top: 1em;
+    font-weight: bold;
+}

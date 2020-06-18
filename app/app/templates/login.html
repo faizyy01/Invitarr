@@ -1,0 +1,105 @@
+{%extends 'layout.html'%}
+{% block content %}
+<div class="login">
+    <img src="{{url_for('static', filename='img/logo.svg')}}" class="img" height="120">
+    <h2 class="mb-5">Invitarr</h2>
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <div class="form-group mb-3">
+        <div class="row">
+            <div class="col-md-4 offset-4">
+            {% if form.username.errors %}
+                {{ form.username(class="form-control form-stringfield", placeholder="Username*")}}
+                <small id="emailHelp" class="form-text text-muted">Some text describing this field</small>
+                    <div class="invalid-feedback">
+                    {% for error in form.username.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                    </div>
+            {% else %}
+                {{ form.username(class="form-control form-stringfield", placeholder="Username*")}}        
+            {% endif %}  
+            </div>
+        </div>
+        </div>
+        <div class="form-group my-3">
+            <div class="row">
+                <div class="col-md-4 offset-4">
+                {% if form.password.errors %}
+                    {{ form.password(class="form-control form-stringfield", placeholder="Password*")}}
+                    <div class="invalid-feedback">
+                        {% for error in form.password.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.password(class="form-control form-stringfield", placeholder="Password*")}}        
+                {% endif %}  
+                </div>
+            </div>
+        </div>
+        <div class="form-group my-5 submit-btn">
+        {{ form.submit(class="btn btn-primary submit-btn") }}
+        </div>
+    </form>
+</div>
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                <h4>
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                </h4>
+                {% endif %}
+                {% endwith %}
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock content %}
+
+
+{% block script %}
+<script>
+    $(document).ready(()=> {
+
+        // Trigger flash modal
+        let messages = "{{ get_flashed_messages() }}";
+
+        if (typeof messages != 'undefined' && messages != '[]') {
+            $("#myModal").modal();
+        };
+    
+        // Adding Validation
+        number_validaitons = ['role_id', 'channel_id', 'owner_id']
+        number_validaitons.forEach(element => {
+            $('#' + element).keyup(function () { 
+                this.value = this.value.replace(/[^0-9\.]/g,'');
+            });            
+        });
+
+        let checkbox_state = $('input[name=auto_remove_user]').is(':checked');
+        
+        if(checkbox_state == false){
+            $('.custom-control-label').text('Off');
+        }
+        
+        $('#removeSwitch').on('change', (e)=> {
+            checkbox_state = $('input[name=auto_remove_user]').is(':checked');
+            if(checkbox_state == false){
+                $('.custom-control-label').text('Off');
+            } else {
+                $('.custom-control-label').text('On');
+            }
+        });
+    });
+</script>
+{% endblock script %}

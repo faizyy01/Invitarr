@@ -1,0 +1,194 @@
+{%extends 'layout.html'%}
+{% block content %}
+    <div class="header mt-5 d-flex">
+        <img src="{{ url_for('static', filename='img/logo.svg') }}" class="img align-self-center" height="45">
+        <h3 class="align-self-center">Invitarr Configuration</h3>
+        <!-- <button class="ml-auto btn btn-danger align-self-center">Restart bot</button> -->
+    </div>
+    <nav>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('home') }}">General</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="#">Bot</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('plex') }}">Plex</a>
+            </li>
+            <li class="nav-item ml-auto">
+                <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+            </li>
+          </ul>
+    </nav>
+    <div class="form-container">
+        <!-- Form Section -->
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <div class="form-group mb-3">
+            <div class="row">
+                <div class="col-md-3">
+                {{ form.discord_bot_token.label(class="form-control-label")}}
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-6">
+                {% if form.discord_bot_token.errors %}
+                    {{ form.discord_bot_token(class="form-control form-stringfield")}}
+                    <small id="emailHelp" class="form-text text-muted">Some text describing this field</small>
+                        <div class="invalid-feedback">
+                        {% for error in form.discord_bot_token.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                        </div>
+                {% else %}
+                    {{ form.discord_bot_token(class="form-control form-stringfield")}}        
+                {% endif %}  
+                </div>
+            </div>
+            </div>
+            <div class="form-group my-3">
+                <div class="row">
+                    <div class="col-md-3">
+                    {{ form.role_id.label(class="form-control-label")}}
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-6">
+                    {% if form.role_id.errors %}
+                        {{ form.role_id(class="form-control form-stringfield")}}
+                        <div class="invalid-feedback">
+                            {% for error in form.role_id.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.role_id(class="form-control form-stringfield")}}        
+                    {% endif %}  
+                    </div>
+                </div>
+            </div>
+            <div class="form-group my-3">
+                <div class="row">
+                    <div class="col-md-3">
+                    {{ form.channel_id.label(class="form-control-label")}}
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-6">
+                    {% if form.channel_id.errors %}
+                        {{ form.channel_id(class="form-control form-stringfield")}}
+                        <div class="invalid-feedback">
+                            {% for error in form.channel_id.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.channel_id(class="form-control form-stringfield")}}        
+                    {% endif %}  
+                    </div>
+                </div>
+            </div>
+            <div class="form-group my-3">
+                <div class="row">
+                    <div class="col-md-3">
+                    {{ form.owner_id.label(class="form-control-label")}}
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-6">
+                    {% if form.owner_id.errors %}
+                        {{ form.owner_id(class="form-control form-stringfield")}}
+                        <div class="invalid-feedback">
+                            {% for error in form.owner_id.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.owner_id(class="form-control form-stringfield")}}        
+                    {% endif %}  
+                    </div>
+                </div>
+            </div>
+            <div class="my-3">
+            <div class="row">
+                <div class="col-md-3">
+                    <p>Auto Remove User</p>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-1 custom-control custom-control-inline custom-switch custom-checkbox">
+                {% if form.auto_remove_user.errors %}
+                    {{ form.auto_remove_user(class="custom-control-input form-stringfield", id="removeSwitch")}}
+                    {{ form.auto_remove_user.label(class="custom-control-label", for="removeSwitch")}}
+                    <div class="invalid-feedback">
+                        {% for error in form.auto_remove_user.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.auto_remove_user(class="custom-control-input form-stringfield", id="removeSwitch")}}
+                    {{ form.auto_remove_user.label(class="custom-control-label", for="removeSwitch")}}
+                {% endif %}
+                </div>
+            </div>
+            </div>
+            <div class="form-group my-5 submit-btn">
+            {{ form.submit(class="btn btn-primary submit-btn") }}
+            </div>
+        </form>
+    </div>
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-sm">
+    
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    <h4>
+                        {% for message in messages %}
+                            {{ message }}
+                        {% endfor %}
+                    </h4>
+                    {% endif %}
+                    {% endwith %}
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+            </div>
+    
+        </div>
+    </div>
+{% endblock content %}
+
+{% block script %}
+<script>
+    $(document).ready(()=> {
+
+        // Trigger flash modal
+        let messages = "{{ get_flashed_messages() }}";
+
+        if (typeof messages != 'undefined' && messages != '[]') {
+            $("#myModal").modal();
+        };
+    
+        // Adding Validation
+        number_validaitons = ['role_id', 'channel_id', 'owner_id']
+        number_validaitons.forEach(element => {
+            $('#' + element).keyup(function () { 
+                this.value = this.value.replace(/[^0-9\.]/g,'');
+            });            
+        });
+
+        let checkbox_state = $('input[name=auto_remove_user]').is(':checked');
+        
+        if(checkbox_state == false){
+            $('.custom-control-label').text('Off');
+        }
+        
+        $('#removeSwitch').on('change', (e)=> {
+            checkbox_state = $('input[name=auto_remove_user]').is(':checked');
+            if(checkbox_state == false){
+                $('.custom-control-label').text('Off');
+            } else {
+                $('.custom-control-label').text('On');
+            }
+        });
+    });
+</script>
+{% endblock script %}

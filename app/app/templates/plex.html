@@ -1,0 +1,155 @@
+{%extends 'layout.html'%}
+{% block content %}
+    <div class="header mt-5">
+        <img src="{{ url_for('static', filename='img/logo.svg') }}" class="img" height="45">
+        <h3>Invitarr Configuration</h3>
+    </div>
+    <nav>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('home') }}">General</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('bot') }}">Bot</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="#">Plex</a>
+            </li>
+            <li class="nav-item ml-auto">
+                <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+            </li>
+          </ul>
+    </nav>
+    <div class="form-container">
+        <!-- Form Section -->
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <div class="form-group mb-3">
+            <div class="row">
+                <div class="col-md-3">
+                {{ form.plex_user.label(class="form-control-label")}}
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-6">
+                {% if form.plex_user.errors %}
+                    {{ form.plex_user(class="form-control form-stringfield")}}
+                    <small id="emailHelp" class="form-text text-muted">Some text describing this field</small>
+                        <div class="invalid-feedback">
+                        {% for error in form.plex_user.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                        </div>
+                {% else %}
+                    {{ form.plex_user(class="form-control form-stringfield")}}        
+                {% endif %}  
+                </div>
+            </div>
+            </div>
+            <div class="form-group my-3">
+                <div class="row">
+                    <div class="col-md-3">
+                    {{ form.plex_pass.label(class="form-control-label")}}
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-6">
+                    {% if form.plex_pass.errors %}
+                        {{ form.plex_pass(class="form-control form-stringfield")}}
+                        <div class="invalid-feedback">
+                            {% for error in form.plex_pass.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.plex_pass(class="form-control form-stringfield")}}        
+                    {% endif %}  
+                    </div>
+                </div>
+            </div>
+            <div class="form-group my-3">
+                <div class="row">
+                    <div class="col-md-3">
+                    {{ form.plex_server_name.label(class="form-control-label")}}
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-6">
+                    {% if form.plex_server_name.errors %}
+                        {{ form.plex_server_name(class="form-control form-stringfield")}}
+                        <div class="invalid-feedback">
+                            {% for error in form.plex_server_name.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.plex_server_name(class="form-control form-stringfield")}}        
+                    {% endif %}  
+                    </div>
+                </div>
+            </div>
+            <div class="form-group my-3">
+                <div class="row">
+                    <div class="col-md-3">
+                    {{ form.plex_libs.label(class="form-control-label")}}
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-6">
+                    {% if form.plex_libs.errors %}
+                        {{ form.plex_libs(class="form-control form-stringfield")}}
+                        <div class="invalid-feedback">
+                            {% for error in form.plex_libs.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.plex_libs(class="form-control form-stringfield")}}        
+                    {% endif %} 
+                    <small id="emailHelp" class="form-text text-muted">Enter comma seperated values</small>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group my-5 submit-btn">
+            {{ form.submit(class="btn btn-primary submit-btn") }}
+            </div>
+        </form>
+    </div>
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-sm">
+    
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    <h4>
+                        {% for message in messages %}
+                            {{ message }}
+                        {% endfor %}
+                    </h4>
+                    {% endif %}
+                    {% endwith %}
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+            </div>
+    
+        </div>
+    </div>
+{% endblock content %}
+
+{% block script %}
+<script>
+    $(document).ready(()=> {
+
+        // Trigger flash modal
+        let messages = "{{ get_flashed_messages() }}";
+
+        if (typeof messages != 'undefined' && messages != '[]') {
+            $("#myModal").modal();
+        };
+    
+        $(".plex-libs").select2({
+            theme: "classic",
+            tags: true,
+            tokenSeparators: [',', ' ']
+        });
+    });
+</script>
+{% endblock script %}
