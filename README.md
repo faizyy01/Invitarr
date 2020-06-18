@@ -24,14 +24,10 @@ This command is used remove a record from the Db. Use -db ls to determine record
 
 # Installation & Configuration
 
-Quick Link to docker image -> https://hub.docker.com/r/piratify/invitarr
-
 ```
 docker pull piratify/invitarr:latest
 docker run -d --restart unless-stopped --name invitarr -v /path to config:/app/app/config -p 5001:5001 piratify/invitarr:latest
 ```
-
-
 
 Refer to the [Wiki](https://github.com/Sleepingpirates/Invitarr/wiki) for detailed steps.
 
