@@ -184,7 +184,7 @@ class MyClient(discord.Client):
                 if deleted:
                     print("Removed {} from db".format(email))
                     secure = client.get_channel(chan)
-                    await secure.send(email + ' ' + member.mention + 'was removed from plex because they left the server')
+                    #await secure.send(email + ' ' + member.mention + 'was removed from plex because they left the server')
                 else:
                     print("Cannot remove this user from db.")
             except:
