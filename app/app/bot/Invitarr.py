@@ -72,7 +72,7 @@ class MyClient(discord.Client):
         print(self.user.name)
         print(self.user.id)
         print('------')
-        await client.change_presence(activity=discord.Game(name="Do -help in {}".format(client.get_channel(chan))))
+        await client.change_presence(activity=discord.Game(name="Admins can do -help"))
 
     async def on_member_update(self, before, after):
         role = after.guild.get_role(roleid)
@@ -117,15 +117,34 @@ class MyClient(discord.Client):
 
     async def on_message(self, message):
         secure = client.get_channel(chan)
+        
         if message.author.id == self.user.id:
             return
 
-        if message.author.id == ownerid:
+        if message.author.guild_permissions.administrator:
+            if message.content.startswith('-plex add'):
+                mgs = message.content.replace('-plex add ','')
+                if plexadd(mgs):
+                    await secure.send('The email has been added! {0.author.mention}'.format(message))
+                else:
+                    await secure.send('Error Check Logs! {0.author.mention}'.format(message))
+            if message.content.startswith('-plex rm'):
+                mgs = message.content.replace('-plex rm ','')
+                if plexremove(mgs):
+                    await secure.send('The email has been removed! {0.author.mention}'.format(message))
+                else:
+                    await secure.send('Error Check Logs! {0.author.mention}'.format(message))
+
+        if message.author.guild_permissions.administrator:
            if message.content.startswith('-db add'):
                mgs = message.content.replace('-db add ','')
                try:
                    mgs = mgs.split(' ')
                    email = mgs[0]
+                   if(plexadd(email)):
+                     await message.channel.send('User has been added to plex.')
+                    else:
+                      await message.channel.send('Error adding user to plex.')
                    bad_chars = ['<','>','@','!']
                    user_id = mgs[1]
                    for i in bad_chars:
@@ -135,9 +154,9 @@ class MyClient(discord.Client):
                except:
                    await message.channel.send('Cannot add this user to db.')
                    print("Cannot add this user to db.")
-               await message.delete()
+               #await message.delete()
 
-        if str(message.channel) == str(secure):
+        if message.author.guild_permissions.administrator:
             if message.content.startswith('-db ls') or message.content.startswith('-db rm'):
                 embed = discord.Embed(title='Invitarr Database.')
                 all = db.read_useremail()
@@ -166,8 +185,8 @@ class MyClient(discord.Client):
 
             if message.content.startswith('-help'):
                 embed = discord.Embed(title='Invitarr Bot Commands', description='Made by [Sleepingpirates](https://github.com/Sleepingpirates/Invitarr), [Join Discord Server](https://discord.gg/vcxCytN)')
-                embed.add_field(name='-plexadd <email>', value='This command is used to add an email to plex', inline=False)
-                embed.add_field(name='-plexrm <email>', value='This command is used to remove an email from plex', inline=False)
+                embed.add_field(name='-plex add <email>', value='This command is used to add an email to plex', inline=False)
+                embed.add_field(name='-plex rm <email>', value='This command is used to remove an email from plex', inline=False)
                 embed.add_field(name='-db ls', value='This command is used list Invitarrs database', inline=False)
                 embed.add_field(name='-db add <email> <@user>', value='This command is used add exsisting users email and discord id to the DB.', inline=False)
                 embed.add_field(name='-db rm <position>', value='This command is used remove a record from the Db. Use -db ls to determine record position. ex: -db rm 1', inline=False)
