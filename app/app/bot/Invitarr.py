@@ -142,9 +142,10 @@ class MyClient(discord.Client):
                    mgs = mgs.split(' ')
                    email = mgs[0]
                    if(plexadd(email)):
-                     await message.channel.send('User has been added to plex.')
-                    else:
-                      await message.channel.send('Error adding user to plex.')
+                     await message.channel.send('User has been added to plex.')   
+                   else:
+                     await message.channel.send('Error adding user to plex.')
+
                    bad_chars = ['<','>','@','!']
                    user_id = mgs[1]
                    for i in bad_chars:
