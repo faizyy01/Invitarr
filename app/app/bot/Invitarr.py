@@ -1,5 +1,6 @@
 #Copyright 2020 Sleepingpirate.
 import os
+import texttable #planned to fix 25 embed problem 
 from os import environ
 import discord
 from discord.ext import commands
@@ -144,14 +145,14 @@ class MyClient(discord.Client):
                    if(plexadd(email)):
                      await message.channel.send('User has been added to plex.')   
                    else:
-                     await message.channel.send('Error adding user to plex.')
+                     await message.channel.send('Error adding email to plex. Ignore this if the email already exist in plex.')
 
                    bad_chars = ['<','>','@','!']
                    user_id = mgs[1]
                    for i in bad_chars:
                        user_id = user_id.replace(i, '')
                    db.save_user(user_id, email)
-                   await secure.send(email + ' ' + mgs[1] + ' was added to plex')
+                   await message.channel.send(email + ' ' + mgs[1] + ' was added to the database.')
                except:
                    await message.channel.send('Cannot add this user to db.')
                    print("Cannot add this user to db.")
@@ -167,8 +168,10 @@ class MyClient(discord.Client):
                     dbuser = client.get_user(id)
                     dbemail = peoples[2]
                     embed.add_field(name=f"**{index}. {dbuser.name}**", value=dbemail+'\n', inline=False)
+
+                
                 if message.content.startswith('-db ls'):
-                    await secure.send(embed = embed)
+                    await message.channel.send(embed = embed)
                 else:
                     try:
                         position = message.content.replace("-db rm", "")
@@ -189,9 +192,9 @@ class MyClient(discord.Client):
                 embed.add_field(name='-plex add <email>', value='This command is used to add an email to plex', inline=False)
                 embed.add_field(name='-plex rm <email>', value='This command is used to remove an email from plex', inline=False)
                 embed.add_field(name='-db ls', value='This command is used list Invitarrs database', inline=False)
-                embed.add_field(name='-db add <email> <@user>', value='This command is used add exsisting users email and discord id to the DB.', inline=False)
+                embed.add_field(name='-db add <email> <@user>', value='This command is used to add exsisting users email and discord id to the DB. Bot tries to add email to plex', inline=False)
                 embed.add_field(name='-db rm <position>', value='This command is used remove a record from the Db. Use -db ls to determine record position. ex: -db rm 1', inline=False)
-                await secure.send(embed = embed)
+                await message.channel.send(embed = embed)
 
 
     async def on_member_remove(self, member):
