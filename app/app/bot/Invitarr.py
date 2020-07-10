@@ -1,6 +1,5 @@
 #Copyright 2020 Sleepingpirate.
 import os
-import texttable #planned to fix 25 embed problem 
 from os import environ
 import discord
 from discord.ext import commands
