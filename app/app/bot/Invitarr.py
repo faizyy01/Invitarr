@@ -9,6 +9,7 @@ from discord import Webhook, AsyncWebhookAdapter
 import aiohttp
 from dotenv import load_dotenv
 import configparser
+import texttable
 CONFIG_PATH = 'app/config/config.ini'
 BOT_SECTION = 'bot_envs'
 
@@ -161,16 +162,33 @@ class MyClient(discord.Client):
             if message.content.startswith('-db ls') or message.content.startswith('-db rm'):
                 embed = discord.Embed(title='Invitarr Database.')
                 all = db.read_useremail()
+
+                table = texttable.Texttable()
+                table.set_cols_dtype(["t", "t", "t"])
+                table.set_cols_align(["c", "c", "c"])
+                header = ("#", "Name", "Email")
+                table.add_row(header)
+        
                 for index, peoples in enumerate(all):
                     index = index + 1
                     id = int(peoples[1])
                     dbuser = client.get_user(id)
                     dbemail = peoples[2]
                     embed.add_field(name=f"**{index}. {dbuser.name}**", value=dbemail+'\n', inline=False)
+                    table.add_row((index, dbuser.name, dbemail))
 
                 
                 if message.content.startswith('-db ls'):
-                    await message.channel.send(embed = embed)
+                    total = str(len(all))
+                    if(len(all)>25):
+                        f = open("db.txt", "w")
+                        f.write(table.draw())
+                        f.close()
+                        await message.channel.send("Database too large! Total: {total}".format(total = total),file=discord.File('db.txt'))
+                    else:
+                        await message.channel.send(embed = embed)
+                    
+                        
                 else:
                     try:
                         position = message.content.replace("-db rm", "")
