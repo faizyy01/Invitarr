@@ -3,5 +3,5 @@ RUN apk update && apk add gcc libc-dev make git libffi-dev openssl-dev python3-d
 ENV LISTEN_PORT 5001
 EXPOSE 5001
 COPY ./app /app
-RUN pip install -r requirements.txt
+RUN pip install -Ur requirements.txt
 ENV STATIC_PATH /app/app/static
