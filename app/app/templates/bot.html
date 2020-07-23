@@ -166,9 +166,9 @@
         if (typeof messages != 'undefined' && messages != '[]') {
             $("#myModal").modal();
         };
-    
+        
         // Adding Validation
-        number_validaitons = ['role_id', 'channel_id', 'owner_id']
+        number_validaitons = ['channel_id', 'owner_id']
         number_validaitons.forEach(element => {
             $('#' + element).keyup(function () { 
                 this.value = this.value.replace(/[^0-9\.]/g,'');
