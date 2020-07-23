@@ -174,8 +174,12 @@ class MyClient(discord.Client):
                     id = int(peoples[1])
                     dbuser = client.get_user(id)
                     dbemail = peoples[2]
-                    embed.add_field(name=f"**{index}. {dbuser.name}**", value=dbemail+'\n', inline=False)
-                    table.add_row((index, dbuser.name, dbemail))
+                    try:
+                        username = dbuser.name
+                    except:
+                        username = "User Not Found."
+                    embed.add_field(name=f"**{index}. {username}**", value=dbemail+'\n', inline=False)
+                    table.add_row((index, username, dbemail))
 
                 
                 if message.content.startswith('-db ls'):
