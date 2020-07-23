@@ -1,7 +1,7 @@
 from flask import render_template, flash, request, redirect, url_for
 from flask_login import login_user, current_user, logout_user, login_required
 import subprocess
-
+import os.path
 from app import app, db, bcrypt
 from app.models import User
 from app.forms import LoginForm, GeneralForm, BotForm, PlexForm
@@ -113,3 +113,16 @@ def plex():
                 raise Exception(e)
 
     return render_template('plex.html', form = form)
+
+#starting bot process only if config file exist 
+
+if os.path.exists('/app/app/config/config.ini'):
+    try:
+        manage_bot('start')
+    except Exception as e:
+        manage_bot('kill')
+        print(e)
+else:
+    print("Please configure bot in the webapi and click save changes to start the bot.")
+        
+    
