@@ -27,7 +27,7 @@ class BotForm(FlaskForm):
     discord_bot_token = StringField('Discord Bot Token',
                                 validators=[DataRequired()])
 
-    role_id =  IntegerField('Role Id',
+    role_id =  StringField('Role Id',
                                 validators=[DataRequired()])
 
     channel_id = IntegerField('Channel Id',
