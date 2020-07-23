@@ -1,6 +1,7 @@
 #Copyright 2020 Sleepingpirate.
 import os
 from os import environ
+import logging
 import discord
 from discord.ext import commands
 import asyncio
@@ -21,7 +22,7 @@ except:
 
 # settings
 Discord_bot_token = config.get(BOT_SECTION, 'discord_bot_token')
-roleid = int(config.get(BOT_SECTION, 'role_id'))
+roleid = config.get(BOT_SECTION, 'role_id')
 PLEXUSER = config.get(BOT_SECTION, 'plex_user')
 PLEXPASS = config.get(BOT_SECTION, 'plex_pass')
 PLEX_SERVER_NAME = config.get(BOT_SECTION, 'plex_server_name')
@@ -30,11 +31,9 @@ chan = int(config.get(BOT_SECTION, 'channel_id'))
 ownerid = int(config.get(BOT_SECTION, 'owner_id'))
 auto_remove_user = config.get(BOT_SECTION, 'auto_remove_user') if config.get(BOT_SECTION, 'auto_remove_user') else False
 
-li = list(Plex_LIBS.split(','))
-Plex_LIBS = li
-
-#rolenames = list(roleid.split(','))
-
+Plex_LIBS = list(Plex_LIBS.split(','))
+roleid = list(roleid.split(','))
+print(roleid)
 if auto_remove_user:
     print("auto remove user = True")
     import db as db
@@ -76,45 +75,49 @@ class MyClient(discord.Client):
         await client.change_presence(activity=discord.Game(name="Admins can do -help"))
 
     async def on_member_update(self, before, after):
-        role = after.guild.get_role(roleid)
         secure = client.get_channel(chan)
-        if (role in after.roles and role not in before.roles):
-            await after.send('Welcome To '+ PLEX_SERVER_NAME +'. Just reply with your email so we can add you to Plex!')
-            await after.send('I will wait 10 minutes for your message, if you do not send it by then I will cancel the command.')
-            def check(m):
-                return m.author == after and not m.guild
-            try:
-                email = await client.wait_for('message', timeout=600, check=check)
-            except asyncio.TimeoutError:
-                await after.send('Timed Out. Message Server Admin So They Can Add You Manually.')
-            else:
-                await asyncio.sleep(5)
-                await after.send('Got it we will be processing your email shortly')
-            print(email.content) #make it go to a log channel
-            plexname = str(email.content)
-            if plexadd(plexname):
-                if auto_remove_user:
-                    db.save_user(str(after.id), email.content)
-                await asyncio.sleep(20)
-                await after.send('You have Been Added To Plex!')
-                await secure.send(plexname + ' ' + after.mention + ' was added to plex')
-            else:
-                await after.send('There was an error adding this email address. Message Server Admin.')
-        elif(role not in after.roles and role in before.roles):
-            if auto_remove_user:
+        for role_for_plex in roleid:
+            role = after.guild.get_role(int(role_for_plex))
+            if (role in after.roles and role not in before.roles):
+                await after.send('Welcome To '+ PLEX_SERVER_NAME +'. Just reply with your email so we can add you to Plex!')
+                await after.send('I will wait 10 minutes for your message, if you do not send it by then I will cancel the command.')
+                def check(m):
+                    return m.author == after and not m.guild
                 try:
-                    user_id = after.id
-                    email = db.get_useremail(user_id)
-                    plexremove(email)
-                    deleted = db.delete_user(user_id)
-                    if deleted:
-                        print("Removed {} from db".format(email))
-                        await secure.send(plexname + ' ' + after.mention + ' was removed from plex')
+                    email = await client.wait_for('message', timeout=600, check=check)
+                except asyncio.TimeoutError:
+                    await after.send('Timed Out. Message Server Admin So They Can Add You Manually.')
+                    return
+                else:
+                    await asyncio.sleep(5)
+                    await after.send('Got it we will be processing your email shortly')
+                    print(email.content) #make it go to a log channel
+                    plexname = str(email.content)
+                    if plexadd(plexname):
+                        if auto_remove_user:
+                            db.save_user(str(after.id), email.content)
+                        await asyncio.sleep(20)
+                        await after.send('You have Been Added To Plex!')
+                        await secure.send(plexname + ' ' + after.mention + ' was added to plex')
                     else:
-                        print("Cannot remove this user from db.")
-                except:
-                    print("Cannot remove this user from plex.")
-
+                        await after.send('There was an error adding this email address. Message Server Admin.')
+                    return
+            
+            elif(role not in after.roles and role in before.roles):
+                if auto_remove_user:
+                    try:
+                        user_id = after.id
+                        email = db.get_useremail(user_id)
+                        plexremove(email)
+                        deleted = db.delete_user(user_id)
+                        if deleted:
+                            print("Removed {} from db".format(email))
+                            await secure.send(plexname + ' ' + after.mention + ' was removed from plex')
+                        else:
+                            print("Cannot remove this user from db.")
+                    except:
+                        print("Cannot remove this user from plex.")
+                return
 
     async def on_message(self, message):
         secure = client.get_channel(chan)
@@ -227,8 +230,6 @@ class MyClient(discord.Client):
                 deleted = db.delete_user(user_id)
                 if deleted:
                     print("Removed {} from db".format(email))
-                    secure = client.get_channel(chan)
-                    #await secure.send(email + ' ' + member.mention + 'was removed from plex because they left the server')
                 else:
                     print("Cannot remove this user from db.")
             except:
