@@ -1,4 +1,4 @@
-[![Discord](https://img.shields.io/discord/708829995744755822?color=7289DA&label=Discord&style=for-the-badge&logo=discord)](https://discord.gg/vcxCytN) 
+[![Discord](https://img.shields.io/discord/708829995744755822?color=7289DA&label=Discord&style=for-the-badge&logo=discord)](https://discord.gg/EnUBXmF) 
 [![DockerHub](https://img.shields.io/badge/Docker-Hub-%23099cec?style=for-the-badge&logo=docker)](https://hub.docker.com/r/piratify/invitarr)
 ![Docker Pulls](https://img.shields.io/docker/pulls/piratify/invitarr?color=099cec&style=for-the-badge)
 
