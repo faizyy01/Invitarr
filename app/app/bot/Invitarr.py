@@ -11,6 +11,8 @@ import aiohttp
 from dotenv import load_dotenv
 import configparser
 import texttable
+import sys
+sys.stdout = sys.stderr
 CONFIG_PATH = 'app/config/config.ini'
 BOT_SECTION = 'bot_envs'
 
