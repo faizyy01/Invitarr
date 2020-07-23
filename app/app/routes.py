@@ -118,6 +118,7 @@ def plex():
 
 if os.path.exists('/app/app/config/config.ini'):
     try:
+        manage_bot('kill')
         manage_bot('start')
     except Exception as e:
         manage_bot('kill')
