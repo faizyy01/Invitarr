@@ -127,7 +127,7 @@ class MyClient(discord.Client):
         if message.author.id == self.user.id:
             return
 
-        if message.author.has_permissions(administrators=True):
+        if message.author.guild_permissions.administrator:
             if message.content.startswith('-plex add'):
                 mgs = message.content.replace('-plex add ','')
                 if plexadd(mgs):
@@ -141,7 +141,7 @@ class MyClient(discord.Client):
                 else:
                     await secure.send('Error Check Logs! {0.author.mention}'.format(message))
 
-        if message.author.has_permissions(administrators=True):
+        if message.author.guild_permissions.administrator::
            if message.content.startswith('-db add'):
                mgs = message.content.replace('-db add ','')
                try:
@@ -163,7 +163,7 @@ class MyClient(discord.Client):
                    print("Cannot add this user to db.")
                #await message.delete()
 
-        if message.author.has_permissions(administrators=True):
+        if message.author.guild_permissions.administrator:
             if message.content.startswith('-db ls') or message.content.startswith('-db rm'):
                 embed = discord.Embed(title='Invitarr Database.')
                 all = db.read_useremail()
