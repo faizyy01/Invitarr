@@ -141,7 +141,7 @@ class MyClient(discord.Client):
                 else:
                     await secure.send('Error Check Logs! {0.author.mention}'.format(message))
 
-        if message.author.guild_permissions.administrator::
+        if message.author.guild_permissions.administrator:
            if message.content.startswith('-db add'):
                mgs = message.content.replace('-db add ','')
                try:
