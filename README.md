@@ -43,6 +43,8 @@ docker run -d --restart unless-stopped --name invitarr -v /path to config:/app/a
 Refer to the [Wiki](https://github.com/Sleepingpirates/Invitarr/wiki) for detailed steps.
 
 **Enable Intents else bot will not Dm users after they get the role.**
+https://discordpy.readthedocs.io/en/latest/intents.html#privileged-intents
+
 
 **Default login**
 
@@ -51,7 +53,6 @@ User: admin
 Pass: admin
 ```
 
-https://discordpy.readthedocs.io/en/latest/intents.html#privileged-intents
 
 # Screenshot
 ![bot](https://github.com/Sleepingpirates/Invitarr/blob/master/Screenshots/June_06.10.2020_07.08.21_PM.png)
