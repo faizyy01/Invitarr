@@ -43,7 +43,9 @@ docker run -d --restart unless-stopped --name invitarr -v /path to config:/app/a
 Refer to the [Wiki](https://github.com/Sleepingpirates/Invitarr/wiki) for detailed steps.
 
 **Enable Intents else bot will not Dm users after they get the role.**
+
 Enable Server Members Intent.
+
 https://discordpy.readthedocs.io/en/latest/intents.html#privileged-intents
 
 # Screenshot
