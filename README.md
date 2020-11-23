@@ -44,8 +44,6 @@ Refer to the [Wiki](https://github.com/Sleepingpirates/Invitarr/wiki) for detail
 
 **Enable Intents else bot will not Dm users after they get the role.**
 
-Enable Server Members Intent.
-
 https://discordpy.readthedocs.io/en/latest/intents.html#privileged-intents
 
 # Screenshot
