@@ -15,7 +15,7 @@ Flask-WTF==0.14.3
 idna==2.9
 idna-ssl==1.1.0
 itsdangerous==1.1.0
-Jinja2==2.11.2
+Jinja2==2.11.3
 MarkupSafe==1.1.1
 multidict==4.7.6
 plex.py==0.9.0
