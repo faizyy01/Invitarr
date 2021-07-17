@@ -3,18 +3,13 @@ import os
 from discord.ext import commands, tasks
 from discord.utils import get
 import asyncio
-import json
-import Cogs.Json.jshelper as jshelper
 import sys
+from app.header.configparser import switch, Discord_bot_token
 
-jshelper.prestart()
-data = jshelper.openf("/app/config/app.db")
-if data["token"] == "":
+if switch == 0:
     print("Missing Config.")
     sys.exit()
-        
-data = jshelper.openf("/config/app.db")
-TOKEN = data["token"]
+
 intents = discord.Intents.default()
 intents.members = True
 bot = commands.Bot(command_prefix=".", intents = intents)
@@ -72,4 +67,4 @@ for filename in os.listdir("Cogs"):
     if filename.endswith('.py'):
         bot.load_extension(f'Cogs.{filename[:-3]}')
 
-bot.run(TOKEN)
+bot.run(Discord_bot_token)

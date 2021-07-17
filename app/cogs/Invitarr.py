@@ -1,6 +1,5 @@
-#Copyright 2020 Sleepingpirate.
 import os
-from os import environ
+from os import environ, path
 import logging
 import discord
 from discord.ext import commands
@@ -8,33 +7,14 @@ import asyncio
 from plexapi.myplex import MyPlexAccount
 from discord import Webhook, AsyncWebhookAdapter
 import aiohttp
-from dotenv import load_dotenv
-import configparser
 import texttable
 import sys
+from app.header.configparser import roleid, PLEXUSER, PLEXPASS, PLEX_SERVER_NAME, Plex_LIBS, chan, ownerid, auto_remove_user
+
 sys.stdout = sys.stderr
-CONFIG_PATH = 'app/config/config.ini'
-BOT_SECTION = 'bot_envs'
-
-try:
-    config = configparser.ConfigParser()
-    config.read(CONFIG_PATH)
-except:
-    print("Cannot find config")
-
-# settings
-Discord_bot_token = config.get(BOT_SECTION, 'discord_bot_token')
-roleid = config.get(BOT_SECTION, 'role_id')
-PLEXUSER = config.get(BOT_SECTION, 'plex_user')
-PLEXPASS = config.get(BOT_SECTION, 'plex_pass')
-PLEX_SERVER_NAME = config.get(BOT_SECTION, 'plex_server_name')
-Plex_LIBS = config.get(BOT_SECTION, 'plex_libs')
-chan = int(config.get(BOT_SECTION, 'channel_id'))
-ownerid = int(config.get(BOT_SECTION, 'owner_id'))
-auto_remove_user = config.get(BOT_SECTION, 'auto_remove_user') if config.get(BOT_SECTION, 'auto_remove_user') else False
-
 Plex_LIBS = list(Plex_LIBS.split(','))
 roleid = list(roleid.split(','))
+
 print(roleid)
 if auto_remove_user:
     print("auto remove user = True")
