@@ -12,8 +12,7 @@ import sys
 from app.header.configparser import roleid, PLEXUSER, PLEXPASS, PLEX_SERVER_NAME, Plex_LIBS, chan, ownerid, auto_remove_user
 
 sys.stdout = sys.stderr
-Plex_LIBS = list(Plex_LIBS.split(','))
-roleid = list(roleid.split(','))
+
 
 if auto_remove_user:
     print("auto remove user = True")
@@ -23,7 +22,10 @@ account = MyPlexAccount(PLEXUSER, PLEXPASS)
 plex = account.resource(PLEX_SERVER_NAME).connect()  # returns a PlexServer instance
 
 class app(commands.Cog):
-
+    
+    def __init__(self, bot):
+        self.bot = bot
+    
     @commands.Cog.listener()
     async def on_ready(self):
         print('Made by Sleepingpirate https://github.com/Sleepingpirates/')

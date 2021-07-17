@@ -64,6 +64,14 @@ try:
         ownerid = int(config.get(BOT_SECTION, 'owner_id'))
         auto_remove_user = config.get(BOT_SECTION, 'auto_remove_user') if config.get(BOT_SECTION, 'auto_remove_user') else False
         switch = 1
+
+    if switch == 1:
+    if plex_libs.lower() == "all"
+        continue
+    else: 
+        Plex_LIBS = list(Plex_LIBS.split(','))
+    roleid = list(roleid.split(','))
+    
 except:
     print("Cannot find config/Incomplete config")
 
