@@ -39,7 +39,7 @@ auto_remove_user = ""
 switch = 0 
 
 try:
-    if(path.exists(CONFIG_PATH)):
+    if(path.exists(CONFIG_PATH)):   #Only for old docker users who already have config mounted at /app/app/config/config.ini
         config = configparser.ConfigParser()
         config.read(CONFIG_PATH)
         Discord_bot_token = config.get(BOT_SECTION, 'discord_bot_token')
