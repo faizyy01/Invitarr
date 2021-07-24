@@ -16,9 +16,9 @@ Invitarr is a chatbot that invites discord users to plex. You can also automate 
 
 Commands: 
 ```
--plex add <email>
+-plexadd <email>
 This command is used to add an email to plex
--plex rm <email>
+-plexrm <email>
 This command is used to remove an email from plex
 -db ls
 This command is used to list Invitarrs database
