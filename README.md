@@ -51,7 +51,3 @@ https://discordpy.readthedocs.io/en/latest/intents.html#privileged-intents
 User: admin
 Pass: admin
 ```
-
-
-# Screenshot
-![bot](https://github.com/Sleepingpirates/Invitarr/blob/master/Screenshots/June_06.10.2020_07.08.21_PM.png)
