@@ -1,7 +1,14 @@
-FROM tiangolo/uwsgi-nginx-flask:python3.8-alpine
-RUN apk update && apk add gcc libc-dev make git libffi-dev openssl-dev python3-dev libxml2-dev libxslt-dev
-ENV LISTEN_PORT 5001
-EXPOSE 5001
+FROM python:3.6-slim
 COPY ./app /app
+WORKDIR /app
+RUN apt-get clean \
+    && apt-get -y update
+RUN apt-get -y install nginx \
+    && apt-get -y install python3-dev \
+    && apt-get -y install build-essential
 RUN pip install -Ur requirements.txt
-ENV STATIC_PATH /app/app/static
+RUN usermod -u 1000 www-data
+RUN usermod -G staff www-data
+COPY nginx.conf /etc/nginx
+RUN chmod +x ./start.sh
+CMD ["./start.sh"]

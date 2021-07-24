@@ -6,15 +6,14 @@ from app import app, db, bcrypt
 from app.models import User
 from app.forms import LoginForm, GeneralForm, BotForm, PlexForm
 from app import configHandler
-
-db.create_all()
+import sys
 BOT_SECTION = 'bot_envs'
 proc = None
 
 def manage_bot(option):
     global proc
     if option == 'start':
-        proc = subprocess.Popen(["python", "app/bot/Invitarr.py"])
+        proc = subprocess.Popen(["python", '-u',"app/bot/Invitarr.py"], stdout=subprocess.PIPE , stderr=subprocess.STDOUT)
     elif option == 'kill':
         if proc:
             proc.terminate()

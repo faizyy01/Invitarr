@@ -1,4 +1,3 @@
-#Copyright 2020 Sleepingpirate.
 import os
 from os import environ
 import logging
@@ -11,8 +10,9 @@ import aiohttp
 from dotenv import load_dotenv
 import configparser
 import texttable
-import sys
-sys.stdout = sys.stderr
+
+logging.basicConfig(filename="app/config/invitarr.log", filemode='w', level=logging.INFO)
+
 CONFIG_PATH = 'app/config/config.ini'
 BOT_SECTION = 'bot_envs'
 
@@ -20,7 +20,7 @@ try:
     config = configparser.ConfigParser()
     config.read(CONFIG_PATH)
 except:
-    print("Cannot find config")
+    logging.info("Cannot find config")
 
 # settings
 Discord_bot_token = config.get(BOT_SECTION, 'discord_bot_token')
