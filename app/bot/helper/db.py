@@ -40,7 +40,7 @@ else:
 
 def save_user(username, email):
     if username and email:
-        conn.execute("INSERT INTO clients (discord_username, email) VALUES ('"+ username +"', '" + email +  "')");
+        conn.execute("INSERT INTO clients (discord_username, email) VALUES ('"+ username +"', '" + email +  "')")
         conn.commit()
         print("User added to db.")
     else:
