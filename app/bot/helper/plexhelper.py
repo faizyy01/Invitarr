@@ -1,9 +1,7 @@
 from plexapi.myplex import MyPlexAccount
 import re
-from app.bot.helper.confighelper import Plex_LIBS
 
-def plexadd(plex, plexname):
-    global Plex_LIBS
+def plexadd(plex, plexname, Plex_LIBS):
     try:
         if Plex_LIBS[0] == "all":
             Plex_LIBS = plex.library.sections()

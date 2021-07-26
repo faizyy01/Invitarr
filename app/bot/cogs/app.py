@@ -99,7 +99,7 @@ class app(commands.Cog):
 
     async def addtoplex(self, email, channel):
         if(plexhelper.verifyemail(email)):
-            if plexhelper.plexadd(plex,email):
+            if plexhelper.plexadd(plex,email,Plex_LIBS):
                 await self.embedinfo(channel, 'This email address has been added to plex')
                 return True
             else:
@@ -111,7 +111,7 @@ class app(commands.Cog):
 
     async def removefromplex(self, email, channel):
         if(plexhelper.verifyemail(email)):
-            if plexhelper.plexadd(plex,email):
+            if plexhelper.plexremove(plex,email):
                 await self.embedinfo(channel, 'This email address has been removed from plex.')
                 return True
             else:
@@ -136,7 +136,7 @@ class app(commands.Cog):
                     email = await self.getemail(after)
                     if email is not None:
                         await self.embedinfo(after, "Got it we will be adding your email to plex shortly!")
-                        if plexhelper.plexadd(plex,email):
+                        if plexhelper.plexadd(plex,email,Plex_LIBS):
                             db.save_user(str(after.id), email)
                             await asyncio.sleep(5)
                             await self.embedinfo(after, 'You have Been Added To Plex! Login to plex and accept the invite!')
