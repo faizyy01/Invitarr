@@ -29,14 +29,7 @@ if(path.exists('bot.env')):
     
     except Exception as e:
         pass
-
-elif(path.exists('app/config/config.ini')):
-    try:
-        config = configparser.ConfigParser()
-        config.read(CONFIG_PATH)
-        Discord_bot_token = config.get(BOT_SECTION, 'discord_bot_token')
-    except:
-        pass
+        
 else:
     try:
         Discord_bot_token = str(os.environ['token'])
