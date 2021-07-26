@@ -53,7 +53,7 @@ if Plex_LIBS is None:
     Plex_LIBS = ["all"]
 else:
     Plex_LIBS = list(Plex_LIBS.split(', '))
-print(Plex_LIBS)
+
 class app(commands.Cog):
     
     def __init__(self, bot):
