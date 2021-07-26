@@ -161,12 +161,12 @@ class app(commands.Cog):
 
 
     @commands.has_permissions(administrator=True)
-    @commands.command()
+    @commands.command(aliases=['plexadd'])
     async def plexinvite(self, ctx, email):
         await self.addtoplex(email, ctx.channel)
     
     @commands.has_permissions(administrator=True)
-    @commands.command()
+    @commands.command(aliases=['plexrm'])
     async def plexremove(self, ctx, email):
         await self.removefromplex(email, ctx.channel)
         
