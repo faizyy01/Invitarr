@@ -2,4 +2,4 @@ FROM gorialis/discord.py
 WORKDIR /app
 COPY . .
 RUN pip install -Ur requirements.txt
-CMD ["python", "Run.py"]
+CMD ["python", "run.py"]
