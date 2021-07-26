@@ -58,7 +58,7 @@ async def roleadd(ctx, role: discord.Role):
         roles.append(role.name)
         saveroles = ",".join(roles)
         confighelper.change_config("roles", saveroles)
-        await ctx.author.send("Updated roles. Bot is restarting.")
+        await ctx.author.send("Updated roles. Bot is restarting. Please wait.")
         print("Roles updated. Restarting bot.")
         reload()
         await ctx.author.send("Bot has been restarted. Give it a few seconds.")
@@ -86,7 +86,7 @@ async def setupplex(ctx):
                 confighelper.change_config("plex_pass", str(password))
                 confighelper.change_config("plex_server_name", str(servername))
                 print("Plex username, password, and plex server name updated. Restarting bot.")
-                await ctx.author.send("Plex username, password, and plex server name updated. Restarting bot.")
+                await ctx.author.send("Plex username, password, and plex server name updated. Restarting bot. Please wait.")
                 reload()
                 await ctx.author.send("Bot has been restarted. Give it a few seconds. Please check logs and make sure you see the line: `Logged into plex`. If not run this command again and make sure you enter the right values. ")
                 print("Bot has been restarted. Give it a few seconds.")
@@ -100,7 +100,7 @@ async def setuplibs(ctx):
         return
     else:
         confighelper.change_config("plex_libs", str(libs))
-        print("Plex libraries updated. Restarting bot.")
+        print("Plex libraries updated. Restarting bot. Please wait.")
         reload()
         await ctx.author.send("Bot has been restarted. Give it a few seconds. Please check logs and make sure you see the line: `Logged into plex`. If not run this command again and make sure you enter the right values. ")
         print("Bot has been restarted. Give it a few seconds.")

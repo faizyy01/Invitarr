@@ -34,7 +34,7 @@ try:
     Discord_bot_token = str(os.environ['token'])
     switch = 1
 except Exception as e:
-    print("ERROR. No config found.")
+    pass
 
 if(path.exists('app/config/config.ini')):
     try:

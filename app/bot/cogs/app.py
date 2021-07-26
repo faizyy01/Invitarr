@@ -52,7 +52,7 @@ if roles is not None:
 if Plex_LIBS is None:
     Plex_LIBS = ["all"]
 else:
-    Plex_LIBS = list(Plex_LIBS.split(', '))
+    Plex_LIBS = list(Plex_LIBS.split(','))
 
 class app(commands.Cog):
     
