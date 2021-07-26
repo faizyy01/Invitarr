@@ -1,8 +1,6 @@
 from plexapi.myplex import MyPlexAccount
 import re
 from app.bot.helper.confighelper import Plex_LIBS
-import logging
-logging.basicConfig(filename="app/config/plex.log", filemode='a', level=logging.ERROR)
 
 def plexadd(plex, plexname):
     global Plex_LIBS
@@ -12,25 +10,25 @@ def plexadd(plex, plexname):
         plex.myPlexAccount().inviteFriend(user=plexname, server=plex, sections=Plex_LIBS, allowSync=False,
                                               allowCameraUpload=False, allowChannels=False, filterMovies=None,
                                               filterTelevision=None, filterMusic=None)
-        logging.info(plexname +' has been added to plex')
+        print(plexname +' has been added to plex')
         return True
     except Exception as e:
-        logging.error(e)
+        print(e)
         return False
 
 def plexremove(plex, plexname):
     try:
         plex.myPlexAccount().removeFriend(user=plexname)
-        logging.info(plexname +' has been removed from plex')
+        print(plexname +' has been removed from plex')
         return True
     except Exception as e:
-        logging.error(e)
+        print(e)
         return False
         '''
 
         plex python api has no tools to remove unaccepted invites... 
 
-        logging.info("Trying to remove invite...")
+        print("Trying to remove invite...")
         removeinvite = plexremoveinvite(plex, plexname)
         if removeinvite:
             return True
@@ -40,10 +38,10 @@ def plexremove(plex, plexname):
 def plexremoveinvite(plex, plexname):
     try:
         plex.myPlexAccount().removeFriend(user=plexname)
-        logging.info(plexname +' has been removed from plex')
+        print(plexname +' has been removed from plex')
         return True
     except Exception as e:
-        logging.error(e)
+        print(e)
         return False        
 '''
 def verifyemail(addressToVerify):
