@@ -90,6 +90,20 @@ async def setupplex(ctx):
                 reload()
                 await ctx.author.send("Bot has been restarted. Give it a few seconds. Please check logs and make sure you see the line: `Logged into plex`. If not run this command again and make sure you enter the right values. ")
                 print("Bot has been restarted. Give it a few seconds.")
-                
+
+@bot.command()
+@commands.has_permissions(administrator=True)
+async def setuplibs(ctx):
+    libs = ""
+    libs = await getplex(ctx, "libs")
+    if libs is None:
+        return
+    else:
+        confighelper.change_config("plex_libs", str(libs))
+        print("Plex libraries updated. Restarting bot.")
+        reload()
+        await ctx.author.send("Bot has been restarted. Give it a few seconds. Please check logs and make sure you see the line: `Logged into plex`. If not run this command again and make sure you enter the right values. ")
+        print("Bot has been restarted. Give it a few seconds.")
+
 bot.load_extension(f'app.bot.cogs.app')
 bot.run(Discord_bot_token)

@@ -16,7 +16,7 @@ roles = None
 PLEXUSER = ""
 PLEXPASS = ""
 PLEX_SERVER_NAME = ""
-Plex_LIBS = ["all"]
+Plex_LIBS = None
 switch = 0 
 
 
@@ -59,7 +59,11 @@ if(path.exists('app/config/config.ini')):
         roles = config.get(BOT_SECTION, 'roles')
     except:
         pass
-
+if(path.exists('app/config/config.ini')):
+    try:
+        Plex_LIBS = config.get(BOT_SECTION, 'plex_libs')
+    except:
+        pass
 def get_config():
     """
     Function to return current config

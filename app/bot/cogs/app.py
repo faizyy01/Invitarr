@@ -17,7 +17,7 @@ roles = None
 PLEXUSER = ""
 PLEXPASS = ""
 PLEX_SERVER_NAME = ""
-Plex_LIBS = ["all"]
+Plex_LIBS = None
 
 if(path.exists('app/config/config.ini')):
     try:
@@ -33,6 +33,11 @@ if(path.exists('app/config/config.ini')):
         roles = config.get(BOT_SECTION, 'roles')
     except:
         pass
+if(path.exists('app/config/config.ini')):
+    try:
+        Plex_LIBS = config.get(BOT_SECTION, 'plex_libs')
+    except:
+        pass
 
 try:
     account = MyPlexAccount(PLEXUSER, PLEXPASS)
@@ -44,6 +49,11 @@ except:
 if roles is not None:
     roles = list(roles.split(','))
 
+if Plex_LIBS is None:
+    Plex_LIBS = ["all"]
+else:
+    Plex_LIBS = list(Plex_LIBS.split(', '))
+print(Plex_LIBS)
 class app(commands.Cog):
     
     def __init__(self, bot):
