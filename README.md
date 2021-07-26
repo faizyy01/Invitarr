@@ -15,17 +15,32 @@ Invitarr is a chatbot that invites discord users to plex. You can also automate 
 - Fully configurable via a web portal
 
 Commands: 
+
 ```
--plexadd <email>
+.plexinvite <email>
 This command is used to add an email to plex
--plexrm <email>
+.plexremove <email>
 This command is used to remove an email from plex
--db ls
+.dbls
 This command is used to list Invitarrs database
--db add <email> <@user>
+.dbadd <email> <@user>
 This command is used to add exsisting users email and discord id to the DB.
--db rm <position>
+.dbrm <position>
 This command is used to remove a record from the Db. Use -db ls to determine record position. ex: -db rm 1
+```
+
+# Setup 
+
+**1. Enter discord bot token in bot.env**
+
+**2. Install requirements**
+
+```
+pip3 install -r requirements.txt 
+```
+**3. Start the bot**
+```
+python3 Run.py
 ```
 
 # Docker Setup & Start
@@ -36,7 +51,20 @@ docker pull piratify/invitarr:latest
 ```
 2. Make the container 
 ```
-docker run -d --restart unless-stopped --name invitarr -v /path to config:/app/app/config -p 80:80 piratify/invitarr:latest
+docker run -d --restart unless-stopped --name invitarr -v /path to config:/app/app/config -e "token=YOUR_DISCORD_TOKEN_HERE" piratify/invitarr:latest
+```
+
+# After bot has started 
+
+Setup Commands: 
+
+```
+.setupplex
+This command is used to setup plex login. 
+.roleadd <@role>
+These role(s) will be used as the role(s) to automatically invite user to plex
+.setuplibs
+This command is used to setup plex libraries. Default is set to all. 
 ```
 
 Refer to the [Wiki](https://github.com/Sleepingpirates/Invitarr/wiki) for detailed steps.
@@ -44,10 +72,3 @@ Refer to the [Wiki](https://github.com/Sleepingpirates/Invitarr/wiki) for detail
 **Enable Intents else bot will not Dm users after they get the role.**
 https://discordpy.readthedocs.io/en/latest/intents.html#privileged-intents
 
-
-**Default login**
-
-```
-User: admin
-Pass: admin
-```
