@@ -148,15 +148,16 @@ class app(commands.Cog):
                     try:
                         user_id = after.id
                         email = db.get_useremail(user_id)
-                        plexremove(email)
+                        plexhelper.plexremove(plex,email)
                         deleted = db.delete_user(user_id)
                         if deleted:
                             print("Removed {} from db".format(email))
                             #await secure.send(plexname + ' ' + after.mention + ' was removed from plex')
                         else:
                             print("Cannot remove this user from db.")
-                    except:
-                        print("Cannot remove this user from plex.")
+                    except Exception as e:
+                        print(e)
+                        print("{} Cannot remove this user from plex.".format(email))
                     return
 
 
