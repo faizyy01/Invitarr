@@ -14,6 +14,28 @@ def plexadd(plex, plexname, Plex_LIBS):
         print(e)
         return False
 
+def plexhomeadd(plex, plexname, Plex_LIBS):
+    try:
+        if Plex_LIBS[0] == "all":
+            Plex_LIBS = plex.library.sections()
+        plex.myPlexAccount().createHomeUser(user=plexname, server=plex, sections=Plex_LIBS, allowSync=False,
+                                              allowCameraUpload=False, allowChannels=False, filterMovies=None,
+                                              filterTelevision=None, filterMusic=None)
+        print(plexname +' has been added to plex home')
+        return True
+    except Exception as e:
+        print(e)
+        return False
+
+def plexremovehome(plex, plexname):
+    try:
+        plex.myPlexAccount().removeFriend(user=plexname)
+        print(plexname +' has been removed from plex home')
+        return True
+    except Exception as e:
+        print(e)
+        return False
+
 def plexremove(plex, plexname):
     try:
         plex.myPlexAccount().removeFriend(user=plexname)

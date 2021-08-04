@@ -109,10 +109,34 @@ class app(commands.Cog):
             await self.embederror(channel, 'Invalid email.')
             return False
 
+    async def addtoplexhome(self, email, channel):
+        if(plexhelper.verifyemail(email)):
+            if plexhelper.plexhomeadd(plex,email,Plex_LIBS):
+                await self.embedinfo(channel, 'This email address has been added to plex home')
+                return True
+            else:
+                await self.embederror(channel, 'There was an error adding this email address. Check logs.')
+                return False
+        else:
+            await self.embederror(channel, 'Invalid email.')
+            return False
+
     async def removefromplex(self, email, channel):
         if(plexhelper.verifyemail(email)):
             if plexhelper.plexremove(plex,email):
                 await self.embedinfo(channel, 'This email address has been removed from plex.')
+                return True
+            else:
+                await self.embederror(channel, 'There was an error removing this email address. Check logs.')
+                return False
+        else:
+            await self.embederror(channel, 'Invalid email.')
+            return False
+    
+    async def removefromplexhome(self, email, channel):
+        if(plexhelper.verifyemail(email)):
+            if plexhelper.plexremovehome(plex,email):
+                await self.embedinfo(channel, 'This email address has been removed from plex home.')
                 return True
             else:
                 await self.embederror(channel, 'There was an error removing this email address. Check logs.')
@@ -170,6 +194,16 @@ class app(commands.Cog):
     @commands.command(aliases=['plexrm'])
     async def plexremove(self, ctx, email):
         await self.removefromplex(email, ctx.channel)
+    
+    @commands.has_permissions(administrator=True)
+    @commands.command(aliases=['plexaddhome'])
+    async def plexinvitehome(self, ctx, email):
+        await self.addtoplexhome(email, ctx.channel)
+    
+    @commands.has_permissions(administrator=True)
+    @commands.command(aliases=['plexrmhome'])
+    async def plexremovehome(self, ctx, email):
+        await self.removefromplexhome(email, ctx.channel)
         
     @commands.has_permissions(administrator=True)
     @commands.command()
