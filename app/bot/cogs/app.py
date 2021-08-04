@@ -184,6 +184,13 @@ class app(commands.Cog):
                         print("{} Cannot remove this user from plex.".format(email))
                     return
 
+    @commands.cog.listener()
+    aysnc def on_member_remove(self, member):
+        email = db.get_useremail(member.id)
+        plexhelper.plexremove(plex,email)
+        deleted = db.delete_user(member.id)
+        if deleted:
+            print("Removed {} from db because user left discord server.".format(email))
 
     @commands.has_permissions(administrator=True)
     @commands.command(aliases=['plexadd'])
