@@ -185,7 +185,7 @@ class app(commands.Cog):
                     return
 
     @commands.cog.listener()
-    aysnc def on_member_remove(self, member):
+    async def on_member_remove(self, member):
         email = db.get_useremail(member.id)
         plexhelper.plexremove(plex,email)
         deleted = db.delete_user(member.id)
