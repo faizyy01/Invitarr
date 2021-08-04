@@ -78,12 +78,12 @@ class app(commands.Cog):
     async def getemail(self, after):
         email = None
         await self.embedinfo(after,'Welcome To '+ PLEX_SERVER_NAME +'. Just reply with your email so we can add you to Plex!')
-        await self.embedinfo(after,'I will wait 15 minutes for your message, if you do not send it by then I will cancel the command.')
+        await self.embedinfo(after,'I will wait 24 hours for your message, if you do not send it by then I will cancel the command.')
         while(email == None):
             def check(m):
                 return m.author == after and not m.guild
             try:
-                email = await self.bot.wait_for('message', timeout=200, check=check)
+                email = await self.bot.wait_for('message', timeout=86400, check=check)
                 if(plexhelper.verifyemail(str(email.content))):
                     return str(email.content)
                 else:
