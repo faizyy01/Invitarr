@@ -184,7 +184,7 @@ class app(commands.Cog):
                         print("{} Cannot remove this user from plex.".format(email))
                     return
 
-    @commands.cog.listener()
+    @commands.Cog.listener()
     async def on_member_remove(self, member):
         email = db.get_useremail(member.id)
         plexhelper.plexremove(plex,email)
