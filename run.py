@@ -17,6 +17,8 @@ if switch == 0:
     print("Missing Config.")
     sys.exit()
 
+print("V 1.0")
+
 intents = discord.Intents.default()
 intents.members = True
 bot = commands.Bot(command_prefix=".", intents = intents)
