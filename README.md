@@ -37,6 +37,7 @@ This command is used to remove a record from the Db. Use -db ls to determine rec
 3. Click the Install Button.
 4. On the following Add Container screen, add discord bot token.
 5. Click apply
+6. Finish setting up using [Setup Commands](#after-bot-has-started)
 
 # Setup 
 
