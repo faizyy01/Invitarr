@@ -30,6 +30,14 @@ This command is used to add exsisting users email and discord id to the DB.
 This command is used to remove a record from the Db. Use -db ls to determine record position. ex: -db rm 1
 ```
 
+# Unraid Installation 
+
+1. Ensure you have the Community Applications plugin installed.
+2. Inside the Community Applications app store, search for Invitarr.
+3. Click the Install Button.
+4. On the following Add Container screen, add discord bot token.
+5. Click apply
+
 # Setup 
 
 **1. Enter discord bot token in bot.env**
