@@ -66,7 +66,7 @@ docker run -d --restart unless-stopped --name invitarr -v /path to config:/app/a
 
 # After bot has started 
 
-#Setup Commands: 
+# Setup Commands: 
 
 ```
 .setupplex
