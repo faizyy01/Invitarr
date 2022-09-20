@@ -1,11 +1,12 @@
+from plexapi.server import PlexServer
 from plexapi.myplex import MyPlexAccount
 import re
 
-def plexadd(plex, plexname, Plex_LIBS):
+def plexadd(plex, account, plexname, Plex_LIBS):
     try:
         if Plex_LIBS[0] == "all":
             Plex_LIBS = plex.library.sections()
-        plex.myPlexAccount().inviteFriend(user=plexname, server=plex, sections=Plex_LIBS, allowSync=False,
+        account.inviteFriend(user=plexname, server=plex, sections=Plex_LIBS, allowSync=False,
                                               allowCameraUpload=False, allowChannels=False, filterMovies=None,
                                               filterTelevision=None, filterMusic=None)
         print(plexname +' has been added to plex')
@@ -15,18 +16,16 @@ def plexadd(plex, plexname, Plex_LIBS):
         return False
 
 
-def plexremove(plex, plexname):
+def plexremove(account, plexname):
     try:
-        plex.myPlexAccount().removeFriend(user=plexname)
+        account.removeFriend(user=plexname)
         print(plexname +' has been removed from plex')
         return True
     except Exception as e:
         print(e)
         return False
         '''
-
         plex python api has no tools to remove unaccepted invites... 
-
         print("Trying to remove invite...")
         removeinvite = plexremoveinvite(plex, plexname)
         if removeinvite:

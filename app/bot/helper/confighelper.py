@@ -6,16 +6,15 @@ CONFIG_PATH = 'app/config/config.ini'
 BOT_SECTION = 'bot_envs'
 config = configparser.ConfigParser()
 
-CONFIG_KEYS = ['username', 'password', 'discord_bot_token', 'plex_user', 'plex_pass',
-                'roles', 'plex_server_name', 'plex_libs', 'owner_id', 'channel_id',
+CONFIG_KEYS = ['username', 'password', 'discord_bot_token', 'plex_token', 'plex_url',
+                'roles', 'plex_libs', 'owner_id', 'channel_id', 'identifier',
                 'auto_remove_user']
 
 # settings
 Discord_bot_token = ""
 roles = None
-PLEXUSER = ""
-PLEXPASS = ""
-PLEX_SERVER_NAME = ""
+PLEX_TOKEN = ""
+PLEX_URL = ""
 Plex_LIBS = None
 switch = 0 
 
@@ -40,9 +39,8 @@ if(path.exists('app/config/config.ini')):
     try:
         config = configparser.ConfigParser()
         config.read(CONFIG_PATH)
-        PLEXUSER = config.get(BOT_SECTION, 'plex_user')
-        PLEXPASS = config.get(BOT_SECTION, 'plex_pass')
-        PLEX_SERVER_NAME = config.get(BOT_SECTION, 'plex_server_name')
+        PLEX_TOKEN = config.get(BOT_SECTION, 'plex_token')
+        PLEX_URL = config.get(BOT_SECTION, 'plex_url')
     except:
         pass
 

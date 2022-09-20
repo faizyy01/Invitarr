@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import asyncio
+from plexapi.server import PlexServer
 from plexapi.myplex import MyPlexAccount
 from discord import Webhook, AsyncWebhookAdapter
 import app.bot.helper.db as db
@@ -9,23 +10,20 @@ import texttable
 import os 
 from os import path
 import configparser
-CONFIG_PATH = 'app/config/config.ini'
-BOT_SECTION = 'bot_envs'
+from app.bot.helper.confighelper import CONFIG_PATH, BOT_SECTION
 
 # settings
 roles = None
-PLEXUSER = ""
-PLEXPASS = ""
-PLEX_SERVER_NAME = ""
+PLEX_TOKEN = ""
+PLEX_URL = ""
 Plex_LIBS = None
 
 if(path.exists('app/config/config.ini')):
     try:
         config = configparser.ConfigParser()
         config.read(CONFIG_PATH)
-        PLEXUSER = config.get(BOT_SECTION, 'plex_user')
-        PLEXPASS = config.get(BOT_SECTION, 'plex_pass')
-        PLEX_SERVER_NAME = config.get(BOT_SECTION, 'plex_server_name')
+        PLEX_TOKEN = config.get(BOT_SECTION, 'plex_token')
+        PLEX_URL = config.get(BOT_SECTION, 'plex_url')
     except:
         pass
 if(path.exists('app/config/config.ini')):
@@ -40,8 +38,8 @@ if(path.exists('app/config/config.ini')):
         pass
 
 try:
-    account = MyPlexAccount(PLEXUSER, PLEXPASS)
-    plex = account.resource(PLEX_SERVER_NAME).connect()  # returns a PlexServer instance
+    plex = PlexServer(PLEX_URL, PLEX_TOKEN)
+    account = MyPlexAccount(PLEX_TOKEN)
     print('Logged into plex!')
 except:
     print('Error with plex login. Please check username and password and Plex server name or setup plex in the bot.')
@@ -99,7 +97,7 @@ class app(commands.Cog):
 
     async def addtoplex(self, email, channel):
         if(plexhelper.verifyemail(email)):
-            if plexhelper.plexadd(plex,email,Plex_LIBS):
+            if plexhelper.plexadd(plex,account,email,Plex_LIBS):
                 await self.embedinfo(channel, 'This email address has been added to plex')
                 return True
             else:
@@ -111,7 +109,7 @@ class app(commands.Cog):
 
     async def removefromplex(self, email, channel):
         if(plexhelper.verifyemail(email)):
-            if plexhelper.plexremove(plex,email):
+            if plexhelper.plexremove(account,email):
                 await self.embedinfo(channel, 'This email address has been removed from plex.')
                 return True
             else:
@@ -136,7 +134,7 @@ class app(commands.Cog):
                     email = await self.getemail(after)
                     if email is not None:
                         await self.embedinfo(after, "Got it we will be adding your email to plex shortly!")
-                        if plexhelper.plexadd(plex,email,Plex_LIBS):
+                        if plexhelper.plexadd(plex,account,email,Plex_LIBS):
                             db.save_user(str(after.id), email)
                             await asyncio.sleep(5)
                             await self.embedinfo(after, 'You have Been Added To Plex! Login to plex and accept the invite!')
@@ -148,7 +146,7 @@ class app(commands.Cog):
                     try:
                         user_id = after.id
                         email = db.get_useremail(user_id)
-                        plexhelper.plexremove(plex,email)
+                        plexhelper.plexremove(account,email)
                         deleted = db.delete_user(user_id)
                         if deleted:
                             print("Removed {} from db".format(email))
@@ -163,7 +161,7 @@ class app(commands.Cog):
     @commands.Cog.listener()
     async def on_member_remove(self, member):
         email = db.get_useremail(member.id)
-        plexhelper.plexremove(plex,email)
+        plexhelper.plexremove(account,email)
         deleted = db.delete_user(member.id)
         if deleted:
             print("Removed {} from db because user left discord server.".format(email))
